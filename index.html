@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>한국표준질병사인분류 (KCD) 뷰어</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Inter 폰트 적용 (Tailwind 기본 폰트와 유사) */
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1f2937; /* gray-800 */
+        }
+        /* <details> 기본 마커 커스텀 (선택 사항) */
+        details summary::-webkit-details-marker {
+            /* display: none; */ /* 기본 마커 숨기기 */
+        }
+        details summary {
+            cursor: pointer;
+            padding: 0.5rem 0.25rem;
+            border-radius: 0.25rem;
+            transition: background-color 0.2s ease-in-out;
+        }
+        details summary:hover {
+            background-color: #f3f4f6; /* gray-100 */
+        }
+        details[open] > summary {
+            /* background-color: #e5e7eb; */ /* gray-200 */
+        }
+        .highlight {
+            background-color: #fef3c7; /* amber-100 */
+            padding: 0.1rem;
+            border-radius: 0.125rem;
+            font-weight: bold;
+        }
+        .code-item {
+            font-weight: 600;
+            color: #1d4ed8; /* blue-700 */
+        }
+        .title-item {
+            color: #374151; /* gray-700 */
+        }
+        .meta-info {
+            font-size: 0.875rem; /* text-sm */
+            margin-left: 1rem;
+            padding-left: 0.75rem;
+            border-left: 2px solid #d1d5db; /* gray-300 */
+        }
+        .meta-info p {
+            margin-bottom: 0.25rem;
+        }
+        .meta-info .include-text {
+            color: #059669; /* green-600 */
+        }
+        .meta-info .exclude-text {
+            color: #dc2626; /* red-600 */
+        }
+        .meta-info .note-text {
+            color: #78716c; /* stone-500 */
+        }
+        .breadcrumb {
+            font-size: 0.875rem;
+            color: #6b7280; /* gray-500 */
+            margin-bottom: 1rem;
+        }
+        /* 스크롤바 스타일 (선택 사항) */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c7c7c7;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a3a3a3;
+        }
+        /* 로딩 스피너 */
+        .loader {
+            border: 5px solid #f3f3f3; /* Light grey */
+            border-top: 5px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 p-4 md:p-8">
+    <div class="container mx-auto max-w-6xl bg-white shadow-xl rounded-lg p-6 md:p-8">
+        <header class="mb-6 border-b pb-4">
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-700 text-center">한국표준질병사인분류 (KCD) - 치과 -</h1>
+            <p class="text-sm text-gray-500 text-center mt-1">통계청 제공 데이터 기반</p>
+        </header>
+
+        <div class="controls mb-6 p-4 bg-gray-100 rounded-md shadow">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-3 sm:space-y-0">
+                <input type="text" id="searchInput" placeholder="코드 또는 질병명 검색..." class="flex-grow p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow">
+                <div class="flex space-x-2">
+                    <button id="expandAllBtn" class="w-full sm:w-auto px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors shadow-sm">모두 펼치기</button>
+                    <button id="collapseAllBtn" class="w-full sm:w-auto px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors shadow-sm">모두 접기</button>
+                </div>
+            </div>
+            <div id="searchStatus" class="text-sm text-gray-600 mt-2"></div>
+        </div>
+        
+        <div id="loader" class="loader"></div>
+        <div id="treeContainer" class="overflow-x-auto">
+            </div>
+    </div>
+
+    <script id="kcdRawData" type="text/plain">
+한국표준질병사인분류
+(통계청홈페이지(www.kostat.go.kr)→통계분류→한국표준질병사인분류→자료실)
+
+구강, 침샘 및 턱의 질환(K00-K14)
+K00	치아의 발육 및 맹출장애
+제외 : 매몰치 및 매복치(K01.-)
+K00.0	무치증
+K00.00	부분무치증[저치증][회치증]
+K00.01	완전무치증
+K00.09	상세불명의 무치증
+K00.1	과잉치
+포함 : 추가치
+제외 : 매복 과잉치(K01.18)
+K00.10	절치 및 견치 부위
+정중과잉치
+K00.11	소구치 부위
+K00.12	대구치 부위
+구후치
+제4대구치
+구방치
+K00.19	상세불명의 과잉치
+K00.2	치아의 크기와 형태의 이상
+K00.20	거대치
+K00.21	왜소치
+K00.22	유작
+K00.23	유합 및 쌍생
+분열치
+유합치
+K00.24	치외치[교합면 이상결절]
+제외 : 정상변형이라 간주되는 카라벨리결절은 코드를 부여하면 안된다
+K00.25	치내치[확장된 치아종] 및 절치 이상
+구개구
+정형(원주)치
+삽형치
+T자형치
+K00.26	소구치화
+K00.27	비정상결절 및 법랑질진주
+제외 : 치외치 [교합면 이상 결절](K00.24)카라벨리 결절, 정상의 변형이라 간주되며 분류해서는 안된다.
+K00.28	우상치
+K00.29	기타 및 상세불명의 치아의 크기와 형태의 이상
+K00.3	반상치
+제외: 치아의 침착물[유착물](K03.6)터너치(K00.46)
+K00.30	지방병성(불소)법랑질의 반점[치아의 불소침착증]
+K00.31	비지방성의 법랑질의 반점[비불소법랑질불투명]
+K00.39	상세불명의 반상치
+K00.4	치아형성의 장애
+제외 : 치아구조의 유전적 장애(K00.5-)선천 매독에서의 허친슨치아 및 오디모양 구치(A50.5)반상치(K00.3-)
+K00.40	법랑질형성저하
+K00.41	출생전 법랑질형성저하
+K00.42	신생아 법랑질형성저하
+K00.43	시멘트질의 무형성 형성저하
+K00.44	만곡치
+K00.45	치아형성이상[국한성 치아형성이상]
+K00.46	터너치아
+K00.48	기타 명시된 치아형성의 장애
+K00.49	상세불명의 치아형성 장애
+K00.5	달리 분류되지 않은 치아구조의 유전성 장애
+K00.50	불완전 법랑질형성증
+K00.51	불완전 상아질형성증
+제외 : 불완전 골형성증(Q78.0)치아형성이상(K00.58)각상치아(K00.58)
+K00.52	불완전 치아형성증
+K00.58	기타 치아구조의 유전성 장애치아형성이상각상치아
+K00.59	상세불명의 치아구조의 유전성 장애
+K00.6	치아맹출의 장애
+K00.60	선천치
+K00.61	신생치
+K00.62	치아의 조기맹출
+K00.63	잔존[지속성] 유치[젖니]
+K00.64	만기 생치
+K00.65	유치[젖니]의 조기탈락
+제외 : 치아탈락(주위 조직의 질병에 기인한) (K08.0)
+K00.68	기타 명시된 치아맹출의 장애
+K00.69	상세불명의 치아맹출의 장애
+K00.7	생치증후군
+K00.8	기타 치아발육의 장애
+포함 : 차이의 내인성 착색 NOS
+제외 : 국소 원인에 의한 변색(K03.6, K03.7)
+K00.80	혈액형부적합에 의한 치아형성 중 색조변화
+K00.81	담도계이상으로 인한 치아형성 중 색조변화
+K00.82	포르피린증에 의한 치아형성 중 색조변화
+K00.83	테트라시이클린에 의한 치아형성 중 색조변화
+K00.88	기타 명시된 치아발육의 장애
+K00.9	상세불명의 치아발육의 장애치아형성의 장애 NOS
+
+K01	매몰치 및 매복치
+제외 : 매몰치와 매복치 또는 그 인접치아의 이상위치를 동반한 매몰치 및 매복치
+K01.0	매몰치
+매몰치는 다른 치아에 의한 폐쇄가 없는데도 맹출되지 못한 치아를 말한다.
+K01.1	매복치
+매복치는 다른 치아에 이한 폐쇄 때문에 맹출되지 못한 치아를 말한다
+K01.10	상악 절치의 매복
+K01.11	하악 절치의 매복
+K01.12	상악 견치의 매복
+K01.13	하악 견치의 매복
+K01.14	상악 소구치의 매복
+K01.15	하악 소구치의 매복
+K01.16	상악 대구치의 매복
+K01.161	제1대구치
+K01.162	제2대구치
+K01.163	제3대구치
+K01.169	상세불명
+K01.17	하악 대구치의 매복
+K01.171	제1대구치
+K01.172	제2대구치
+K01.173	제3대구치
+K01.179	상세불명
+K01.18	과잉매복치
+K01.19	상세불명의 매복치
+K02	치아우식
+K02.0	법랑질에 제한된 우식
+백색반점병면(초기우식)
+K02.1	상아질의 우식
+K02.2	시멘트질의 우식
+K02.3	정지된 치아우식
+K02.4	파치증
+영아성 흑색치아
+흑색파치증
+K02.8	기타 치아우식
+K02.9	상세불명의 치아우식
+
+K03	치아경조직의 기타질환
+제외 : 이갈이(F45.8)치아우식(K02.-)이갈이 NOS(F45.8)
+K03.0	치아의 과다교모
+K03.00	교합면의 마모
+K03.01	인접면의 마모
+K03.08	기타 명시된 형태의 치아의 교모
+K03.09	상세불명의 치아의 교모
+K03.1	치아의 마모
+K03.10	치아의 치약마모
+치아의 쐐기결손 NOS
+K03.11	치아의 습관성 마모
+K03.12	치아의 직업성 마모
+K03.13	치아의 전통성 마모
+종교의식(儀式)성 마모
+K03.18	기타 명시된 치아의 마모
+K03.19	상세불명의 치아의 마모
+K03.2	치아의 침식
+K03.20	직업성 치아의 침식
+K03.21	지속적 구토에 의한 치아의 침식
+K03.22	식사에 의한 치아의 침식
+K03.23	약물 및 약제의 의한 치아의 잠식
+K03.24	특발성 치아의 침식
+K03.28	기타 명시된 치아의 침식
+K03.29	상세불명의 치아의 잠식
+K03.3	치아의 병적 흡수
+K03.30	치아의 외부 흡수
+K03.31	치아의 내부 흡수[내부 육아종][분홍반점]
+K03.39	상세불명의 치아의 병적 흡수
+K03.4	과시멘트질증
+시멘트질증식증
+제외 : 파젯병에서의 고시멘트질증(M88.8)
+K03.5	치아의 유착증
+K03.6	치아의 침착물[유착물]
+치석 :	잇몸밑
+잇몸위
+치아의 침착물[유착물] :	베텔(씹는 후추)
+흑색
+녹색
+백질
+오렌지색
+담배
+치아의 착색 : 	NOS
+외인성 NOS
+K03.7	치아경조직의 맹출후 색조변화
+제외 : 칭의 침착물[유착물](K03.6)
+K03.8	기타 명시된 치아경조직의 질환
+K03.80	과민성 상아질
+K03.81	방사선 조사된 법랑질
+방사선유발성일 때 방사선 감별을 원한다면추가로 외인분류번호(XX장)을 사용할 것.
+K03.88	기타 명시된 치아경조직의 질환
+K03.9	상세불명의 치아경조직의 질환
+
+K04 치수 및 치근단주위조직의 질환
+K04.0	치수염
+급성 치수염
+만성(증식성)(궤양성) 치수염
+K04.00	가역적 치수염
+K04.01	비가역적 치수염
+K04.09	상세불명의 치수염
+K04.1	치수의 괴사
+치수 괴저
+K04.2	치수변성
+상아립
+치수석회화
+치수결석
+K04.3	치수내의 이상경조직형성
+이차성 또는 불규칙적 상아질
+제외 : 치수 석회화(K04.2)치수 결석(K04.2)
+K04.4	치수기원의 급성 근단치주염
+급성 근단치주염 NOS
+K04.5	만성 근단치주염
+근단 또는 근단주위 육아종
+근단치주염 NOS
+K04.6	동이 있는 근단주위농양
+동이 있는 :	치아농양
+치아치조농양
+K04.60	상악동으로 연결된 동
+K04.61	비강으로 연결된 동
+K04.62	구강으로 연결된 동
+K04.63	피부로 연결된 동
+K04.69	상세불명의 동이 있는 근단주위농양
+K04.7	동이 없는 근단주위농양
+농양 NOS: 	치아
+치아치조
+근단주위
+K04.8	치근낭
+낭 :	근단(치주)
+근단주위
+제외 : 외측치주낭(K09.0)
+K04.80	근단 및 외측의 치근낭
+K04.81	잔류성 치근낭
+K04.82	염증성 치주의 치근낭
+제외 : 발육성 외측치주낭(K09.0)
+K04.89	상세불명의 치근낭
+K04.9	치수 및 치근단주위조직의 기타 및 상세불명의 질환
+
+K05	치은염 및 치주질환
+K05.0	급성 치은염
+제외 : 급성 치관주위염(K05.22)급성 괴사궤양성 치은염(A69.1)헤르페스바이러스[단순헤르페스] 치은 구내염(B00.2)
+K05.00	급성 연쇄구균치은구내염
+K05.08	기타 명시된 급성 치은염
+K05.09	상세불명의 급성 치은염
+K05.1	만성 치은염
+K05.10	단순 변연부 (K05.1의 하위분류로 보임, 원본텍스트 K05.0으로 오기된듯하나 K05.10으로 수정)
+K05.11	증식성
+K05.12	궤양성
+제외 : 괴사성 궤양성 치은염(A69.1)
+K05.13	박리성
+K05.18	기타 명시된 만성 치은염
+K05.19	상세불명의 만성 치은염
+K05.2	급성 치주염
+K05.20	동이 없는 잇몸 기원의 치주농양
+제외 : 치수기원의 급성 근단성 치주염(K04.4)근단주위농양(K04.7)동이 있는 근단주위농양(K04.6-)
+치수기원의 치주농양
+K05.21	동이 있는 잇몸 기원의 치주농양
+제외 : 치수기원의 급성 근단성 치주염(K04.4)근단주위농양(K04.7)동이 있는 근단주위농양(K04.6-)
+K05.22	급성 치관주위염
+K05.28	기타 명시된 급성 치주염
+K05.29	상세불명의 급성 치주염
+K05.3	만성 치주염
+K05.30	만성 단순치주염
+K05.31	만성 치관주위염
+K05.38	기타 명시된 만성 치주염
+K05.39	상세불명의 만성 치주염
+K05.4	치주증
+연소성 치주증
+K05.5	기타치주질환
+K05.6	상세불명의 치주질환
+
+K06	잇몸 및 무치성 치조용기의 기타 장애
+제외 : 무치성 치조융기의 위축(K08.2)치은염:	NOS(K05.1)
+급성(K05.0)
+만성(K05.1)
+K06.0	치은퇴축
+K06.00	국소적
+K06.01	전반적
+K06.09	상세불명의 치은퇴축
+치은퇴축(감염후, 수술후)
+K06.1	치은비대
+K06.10	치은섬유종증
+K06.18	기타 명시된 치은비대
+K06.19	상세불명의 치은비대
+K06.2	외상과 연관된 잇몸 및 무치성 치조융기의 병변
+원인 분류를 원한다면 부가 외인분류번호(XX장)을 사용할 것.
+K06.20	외상성 교합에 의한
+K06.21	칫솔질에 의한
+K06.22	마찰성(기능성) 각화증
+K06.23	자극성 증식증[의치성 증식증]
+무치성 융선으 자극성 증식증[의치성 증식증]
+K06.28	기타 명시된 외상과 연관된 잇몸 및 무치성 치조융기의 병변
+K06.29	상세불명의 외상과 연관된 잇몸 및 무치성 치조융기의 병변
+K06.8	기타 명시된 잇몸 및 무치성 치조융기의 장애
+K06.80	성인성 치은낭
+K06.88	기타 명시된 잇몸 및 무치성 치조융기의 장애
+섬유성 치은종
+가동성 융기
+거대세포 치은종
+말초 거대세포육아종
+잇몸의 화농성 육아종
+K06.9	상세불명의 잇몸 및 무치성 치조융기의 장애
+
+K07	치아얼굴이상[부정교합포함]
+제외 : 반족얼굴위축 또는 비대(Q67.4)한쪽 과두의 증식증 또는 형성저하 (K10.8)
+K07.0	턱크기의 주요 이상
+제외 : 말단비대증(E22.0)로빈증후군(Q87.0)
+K07.00	상악의 대악증[상악의 증식증]
+K07.01	하악의 대악증[하악의 증식증]
+K07.02	양악의 대악증
+K07.03	상악의 소악증[상악의 형성저하]
+K07.04	하악의 소악증[하악의 형성저하]
+K07.05	양악의 소악증
+K07.08	기타 명시된 턱크기의 이상
+K07.09	상세불명의 턱크기의 이상
+K07.1	턱-두개골저의 관계이상
+K07.10	턱의 비대칭
+K07.11	하악의 돌출증
+K07.12	상악의 돌출증
+K07.13	하악의 후퇴증
+K07.14	상악의 후퇴증
+K07.18	기타 명시된 턱-두개골저의 관계이상
+K07.19	상세불명의 턱-두개골저의 관계이상
+K07.2	치열궁 관계의 이상
+K07.20	원심교합
+K07.21	근심교합
+K07.22	과도한 상치돌출[수평적 피개교합]
+K07.23	과도한 피개교합[수직적 피개교합]
+K07.24	개방교합
+K07.25	교차교합(전치부, 후치부)
+K07.26	정중편위
+K07.27	하악후치부의 후방혀
+K07.28	기타 명시된 치열궁 관계의 이상
+K07.29	상세불명의 치열궁 관계의 이상
+K07.3	치아위치의 이상
+제외 : 위치이상이 없는 매몰치 및 매복치 (K01.-)
+K07.30	과밀
+K07.31	전위
+K07.32	회전
+K07.33	간격
+정중이개
+K07.34	전위 (K07.31과 중복되어 보이나 원문 유지)
+K07.35	위치이상을 동반한 매몰치 또는 매복치
+K07.38	기타 명시된 치아위치의 이상
+K07.39	상세불명의 치아위치의 이상
+K07.4	상세불명의 부정교합
+K07.5	치아얼굴의 기능이상
+제외 : 이갈이(F45.8)이갈이 NOS(F45.8)
+K07.50	턱닫힘이상
+K07.51	삼킴이상에 의한 부정교합
+K07.52	입호흡에 의한 부정교합
+K07.53	혀, 입술 또는 손가락의 습관에 의한 부정교합
+K07.58	기타 명시된 치아얼굴의 기능적 이상
+K07.59	상세불명의 치아얼굴의 기능적 이상
+K07.6	턱관절장애
+제외 : 현존 턱관절의 :	탈구(S03.0)			긴장(S03.4)
+K07.60	턱관절내장증
+K07.61	턱관절잡음
+K07.62	턱관절의 재발성 탈구 및 이탈구
+K07.63	달리 분류되지 않은 턱관절의 통증
+K07.64	달리 분류되지 않은 턱관절의 경직
+K07.65	턱관절의 퇴행성관절염
+K07.66	저작근의 장애
+K07.68	기타 명시된 턱관절장애
+K07.69	상세불명의 턱관절장애
+K07.8	기타 치아얼굴이상
+K07.9	상세불명의 치아얼굴이상
+
+K08	치아 및 지지구조의 기타장애
+K08.0	전신적 원인에 의한 치아의 탈락
+치아탈락(말단통증(T56.1), 저인산증(E83.3)등 전신적 원인을 포함하는 주위 조직의 실병에 기인하는)
+제외 : 유치[젖니]의 조기 탈락(K00.65)
+K08.1	사고, 발치 또는 국한성 치주병에 의한 치아상실
+제외: 현존 손상(S03.2)
+K08.2	무치성 치조융기의 위축
+K08.3	잔존치근
+K08.8	기타 명시된 치아 및 지지구조의 장애
+K08.80	치통 NOS
+K08.81	불규칙한 치조돌기
+K08.82	치조융기의 비대 NOS
+K08.88	기타
+K08.9	상세불명의 치아 및 지지구조의 장애
+
+K09	달리 분류되지 않은 구강영역의 낭
+포함 : 동맥류낭 및 기타 섬유-골성 병변 모두의 조직학적 소견을 보이는 병변
+제외 : 치근낭(K04.8)
+K09.0	발육성 치성낭
+낭 :	힘치성
+맹출
+소포성
+치은
+외측치주성
+원시성
+K09.1	구강영역의 발육성(비치원성)낭
+(의)낭 :	구상상악
+절치관
+정중구개
+비구개
+구개유두
+K09.2	턱의 기타 낭
+턱의:	낭NOS
+동맥류낭
+출혈성 낭
+외상성 낭
+제외 : 턱의 잠복성 골낭(K10.0)스타프네낭(K10.0)
+K09.8	달리 분류되지 않은 구강영역의 기타 낭
+입의:	유피낭
+유표피낭
+림프상피낭
+엡스타인진주
+코치조낭
+코입술낭
+K09.9	상세불명의 구강영역의 낭
+
+K10	턱의 기타 질환
+K10.0	턱의 발육장애
+턱의 잠복성 골낭
+스타프네낭
+하악융기
+구개융기
+K10.1	중심성 거대세포육아종
+거대세포육아종 NOS
+제외 : 말초성 거대세포육아종(K06.8)
+K10.2	턱의 염승정 병태
+턱(급성, 만성, 화농성)의 :
+골염
+골수염(신생아)
+방사선골괴사
+골막염
+턱뼈의 부골
+방사선-유발일 때 방사선 분류를 원한다면
+부가 외인분류번호(XX장)을 사용할 것.
+K10.3	턱의치조염
+치조골염
+건성발 치와
+K10.8	기타 명시된 턱의 질환
+턱 :	가족성 섬유형성이상
+외골증
+섬유성 형성이상
+한쪽 관절돌기 :	증식증
+형성저하
+K10.9	상세불명의 턱의 질환
+
+K11	침샘의 질환
+K11.0	침샘의 위축
+K11.1	침샘의 비대
+K11.2	타액선염
+제외 : 유행성 이하선염(B26.-)포도막귀밑샘열(D86.8)
+K11.20	급성 타액선염
+K11.21	급성, 재발성 타액선염
+K11.22	만성 타액선염
+K11.29	상세불명의 타액선염
+K11.3	침샘의 농양
+K11.4	침샘의 누공
+제외 : 침샘의 선천누공(Q38.4)
+K11.5	타석증
+침샘 또는 침샘관의 결석
+침샘 또는 침샘관의 돌
+K11.6	침샘의 점액류
+침샘의: 점액유출낭
+점액저류낭
+두꺼비종
+K11.7	침분비의 장애
+침분비저하
+침과다증
+구강건조증
+제외 : 마른입 NOS(R68.2)
+K11.8	기타 침샘의 질환
+침샘의 양성 림프상피병변
+미쿨리츠병
+괴사성 타액선화생
+타액관확장증
+타액관의 :	협착
+협착 (중복이나 원문 유지)
+제외 : 건조증후군[쉐그렌](M35.0)
+K11.9	상세불명의 침샘 질환
+타액선병증 NOS
+
+K12	구내염 및 관련 병변
+제외 : 괴저성 구내염(A69.0)구순염(K13.0)헤르페스바이러스[단순헤르페스] 치은구내염(B00.2)
+K12.0	재발성 구강 아프타
+아프타구내염(주,소)
+베드나르아프타
+재발성 점막괴사성 선주위염
+재발성 아프타성 궤양
+포진모양 구내염
+K12.1	구내염의 기타 형태
+구내염 :	NOS
+의치
+궤양성
+소수포성
+K12.2	입의 연조직염 및 농양
+입(바닥)의 연조직염
+턱밑농양
+제외 : (의) 농양 :
+근단주위(K04.6-K04.7)
+치주(K05.2)
+편도주위(J36)
+침샘(K11.3)
+혀(K14.0)
+K12.3	입점막염
+점막염(입의)(입인두의) :	NOS
+약물-유발
+방사선-유발
+바이러스성
+외부요인의 분류를 원한다면 부가 외인분류번호(XX장)를 사용할 것.
+제외 : 코 및 부비동의 점막염(궤양성) (J34.8)질 및 외음 점막염(궤양성)(N76.8)위장로(구강 및 입인두를 제외한)의 점막염(궤양성)(K92.8)
+
+K13	입술 및 구강점막의 기타 질환
+포함 : 혀의 상피성 장애
+제외 : 잇몸 및 무치성 치조융기의 특정장애(K05-K06)구강 부위의 낭(K09.-)혀의 질환(K14.-)구내염 및 관련병변(K12.-)
+K13.0	입술의 질환
+구순염 :	NOS
+구각
+탈락
+선성
+구순통
+구순증
+구각미란 NEC
+제외 : 리보플라빈결핍(E53.0)
+K13.1	볼 및 입술물림
+K13.2	혀를 포함하는 구강상피의 백반 및 기타 장애
+혀를 포함하는 구강상피의 홍색반
+혀를 포함하는 구강상피의 백색부종
+구개니코틴성 백색각화증
+흡연자 구개
+제외 : 모발성 백반(K13.3)
+K13.3	모발성 백반
+K13.4	구강점막의 육아종 및육아종-유사병변
+구강점막의 :	호산구육아종
+화농육아종
+사마귀황색종
+K13.5	구강점막하 섬유증
+혀의 점막하 섬유증
+K13.6	구강점막의 자극성 즉식증
+제외 : 무치융기의 자극성 증식증[의치에 의한 증식증] (K06.2)
+K13.7	구강점막의 기타 및 상세불명의 병변
+초점성 구강점액증
+
+K14	혀의 질환
+제외 : 혀의(K13.2) :	홍색반	초점성 상피증식증	백색부종	백반모발성 백반(K13.3)대설증(선천)(Q38.2)혀의 점막하 섬유증(K13.5)
+K14.0	설염
+혀의 :	농얌
+궤양(외상성)
+제외 : 위축성 설염(K14.4)
+K14.1	지도모양 혀
+양성 이동성 설염
+탈락성 원형 설염
+K14.2	정중능형 설염
+K14.3	혀유두의 비대
+흑모설
+설태
+엽상유두의 비대
+설모증
+K14.4	혀유두의 위축
+위축성 설염
+K14.5	주름잡힌 혀
+혀 :	열구성
+구상
+음낭성
+제외 : 선천성 열구설(Q38.3)
+K14.6	설통
+혀작열감
+통증혀
+K14.8	혀의 기타 질환
+혀(의) :	위축
+톱날모양
+확대
+비대
+K14.9	상세불명의 혀의 질환
+허병증 NOS
+
+관절병증(M00-M25)
+주로 말초(사지)를 침범하는 장애
+M00	화농성 관절염
+(470~4771쪽의 부분별 분류번호 중, 코드하단에 표기된 번호를 참조하여 분류할 것)
+M00.0	포도구균성 관절염 및 다발관절염
+[0-9]
+
+M02	반응성관절병증
+(470~471쪽의 부분별 분류번호 중, 코드하단에 표기된 번호를 참조하여 분류할 것)
+제외 : 베체트병(M35.2)류마디스열(I00)
+M02.3	라이터병
+[0-9]
+
+염증성 다발관절병증(M05-M14)
+M05	혈청검사 양성 류마티스관절염
+(470~471쪽의 부분별 분류번호 중, 코드하단에 표기된 번호를 참조하여 분류할 것)
+제외 : 류마티스열(I00)연소성 류마티스관절염(M08.-)척추(의) 류마티스 관절염(M45.-)
+M05.0 펠티증후군
+[0-9]
+비장림프절비대 및 백혈구감소가 동반된 류마티스관절염
+
+M06	기타 류마티스관절염
+(470~471쪽의 부분별 분류번호 중, 코드하단에 표기된 번호를 참조하여 분류할 것)
+M06.0	혈청검사 음성 류마티스관절염
+[0-9]
+
+M08	연소성 관절염
+(470~471쪽의 부위별 분류번호 중, 코드하단에 표기된 번호를 참조하여 분류할 것)
+포함 : 16세 이전에 발병하여 3개월 이상 지속되는 소아의 관절염
+제외 : 펠티증후군(M05.)연소성 피부근육염
+M08.0	연소성 류마티스관절염
+[0-9]
+류마티스인자와 관련되거나 관련되지않는 연소성 류마티스관절염
+
+M12	기타 특이성 관절병증
+(470~471쪽의 부위별 분류번호 중, 코드하단에 표기된 번호를 참조하여 분류할 것)
+제외 : 관절병증 NOS(M13.9)관절증(M15-M19)윤상피열 관절병증(J38.7)
+M12.2	(착색)융모결절성 윤활막염
+[0-9]
+M12.5	외상성 관절병증
+[0-9]
+제외 : ~(의) 외상후 관절증 :
+NOS(M19.1)
+제1수근중수관절(M18.2-M18.3)
+고관절(M16.4-M16.5)
+무릎(M17.2-M17.3)
+기타 단일관절(M19.1)
+
+M13	기타 관절염
+(470~471쪽의 부위별 분류번호 중, 코드하단에 표기된 번호를 참조하여 분류할 것)
+제외 : 관절증(M15-M19)
+M13.9	상세불명의 관절염
+[0-9]
+관절병증 NOS
+
+M15	다발관절증
+포함 : 한 부위 이상의 언급이 있는 관절증
+제외 : 단일 관절의 양쪽 침범(M16-M19)
+M15.0	일차성 전신(골)관절증
+M15.1	(관절병증을 동반한) 헤베르덴결절
+M15.2	(관절병증을 동반한) 부샤르결절
+M15.3	이차성 다발관절증
+외상후 다발관절증
+M15.4	미란성 (골)관절증
+M15.8	기타 다발관절증
+M15.9	상세불명의 다발관절증
+전신골관절염 NOS
+
+M19	기타관절증
+(470~471쪽의 부위별 분류번호 중, 코드하단에 표기된 번호를 참조하여 분류할 것)
+제외 : 척추의 골관절증(M47.-)엄지발가락굳음(M20.2)다발관절증(M15.-)
+M19.0	기타 관절의 일차성 관절증
+[0-9]
+일차성 관절증 NOS
+
+M61	근육의 석회화 및 골화
+(470~471쪽의 부위별 분류번호 중, 코드하단에 표기된 번호를 참조하여 분류할 것)
+M61.0	외상성 골화근육염
+[0-9]
+
+M62	기타근육장애
+(470~471쪽의 부위별 분류번호 중, 코드하단에 표기된 번호를 참조하여 분류할 것)
+제외 : 경련 및 연축(R25.2)근통(M79.1)알코올성 근병증(G72.1)약물유발성 근병증(G72.0)강직인간증후군(G25.8)
+M62.0 근육의 분리
+[0-9]
+
+M79	달리 분류되지 않은 기타 연조직 장애
+(470~471쪽의 부위별 분류번호 중, 코드하단에 표기된 번호를 참조하여 분류할 것)
+제외 : 심인성 연조직통증(F45.4)
+M79.0	상세불명의 류마티스
+[0-9]
+제외 : 재발성 류마티스(M12.3)섬유근통(M79.7)
+M79.1	근통
+주 : 5번째 자리는 부위별 세분류를 기재
+제외 : 근육염(M60.-)
+M79.1_0	근막통증후군
+[0-9]
+M79.1_8	기타 근통
+[0-9]
+M79.2	상세불명의 신경통 및 신경염
+[0-9]
+제외 : 단발신경병증(G56-G58)신경뿌리염(M54.1)
+NOS
+팔 NOS
+요전수 NOS
+좌골신경통(M54.3-M54.4)
+
+구순열 및 구개열(Q35-Q37)
+코와 관련된 기형의 분류를 원한다면 부가 분류번호(Q30.2)를 사용할 것.
+제외 : 로빈증후군(Q87.0)
+
+Q35	구개열
+포함 : 구개의 열구
+구개열
+제외 : 구순열을 동반한 구개열(Q37.-)
+Q35.1	경구개열
+Q35.3	연구개열
+Q35.5	경구개열 및 연구개열
+Q35.7	구개수열
+Q35.9	상세불명의 구개열
+구개열 NOS
+
+Q36	구순열
+포함 : 구순파열
+입술의 선천열구
+언청이
+제외 : 구개열을 동반한 구순열(Q37.-)
+Q36.0	양쪽 구순열
+Q36.1	정중 구순열
+Q36.9	한쪽 구순열
+구순열 NOS
+
+Q37	구순열을 동반한 구개열
+Q37.0	양쪽 구순열을 동반한 경구개열
+Q37.1	한쪽 구순열을 동반한 경구개열
+구순열을 동반한 경구개열 NOS
+Q37.2	양쪽 구순열을 동반한 연구개열
+Q37.3	한쪽 구순열을 동반한 연구개열
+구순열을 동반한 연구개열 NOS
+Q37.4	양쪽 구순열을 동반한 경구개열 및 연구개열
+Q37.5	한쪽 구순열을 동반한 경구개열 및 연구개열
+구순열을 동반한 경구개열 및 연구개열 NOS
+Q37.8	상세불명의 양쪽 구순열을 동반한 구개열
+Q37.9	상세불명의 한쪽 구순열을 동반한 구개열
+구순열을 동반한 구개열 NOS
+
+소화계통의 기타 선천기형(Q38-Q45)
+Q38	혀, 입 및 인두의 기타 선천기형
+제외 : 대구증(Q18.4)
+소구증(Q18.5)
+Q38.0	달리 분류되지 않은 입술의 선천기형
+제외 : 구순열(Q36.-)구개열을 동반한 구순열(Q37.-)대순증(Q18.6)소순증(Q18.7)
+Q38.00	비정상 구순소대
+Q38.08	달리 분류되지 않은 입술의 기타선천기형
+입술의 선천누공
+입술의 선천기형 NOS
+반데르보우데증후군
+Q38.1	설유착증
+혀유착
+Q38.2	대설증
+Q38.3	혀의 기타 선천기형
+무설증
+이분혀
+혀의 :	선천유착
+선천열구
+선천기형 NOS
+혀형성저하
+혀의 형성저하
+소설증
+Q38.4	침샘 및 관의 선천기형
+침샘 또는 관(의) :	결여
+부
+폐쇄
+침샘의 선천누공
+Q38.5	달리 분류되지 않은 구개의 선천기형
+목젖 결여
+구개의 선천기형 NOS
+높은 구개공
+제외 : 구개열(Q35.-)구순열을 동반한 구개열(Q37.-)
+Q38.6	입의 기타 선천기형
+입의 선천기형 NOS
+Q38.7	인두와
+인두의 게실
+제외 : 인두와증후군(D82.1)
+Q38.8	인두의 기타 선천기형
+Q38.80	구개인두부전
+Q38.88	인두의 기타 선천기형
+
+S00	머리의 표재성 손상
+(716쪽의 형태별 분류번호 중, 코드 하단에 표기된 번호를 참조하여 분류할 것)
+제외 : 뇌타박상(미만성)(S06.2)초점성 뇌타박상(S06.3)눈 및 안와의 손상(S05.-)
+S00.5	입술 및 구강의 표재성 손상
+[0-9]
+S00.7	머리의 다발성 표재성 손상
+S00.8	기타 머리 부분의 표재성 손상
+[0-9]
+볼
+턱
+얼굴 NOS
+이마 NOS
+관자놀이
+
+S01	머리의 열린 상처
+제외 : 태아 머리제거(S18)눈 및 안와의 손상(S05.-)머리 부분의 외상성 절단(S08.-)
+S01.4	볼 및 측두하악부의 열린 상처
+S01.40	볼의 열린 상처
+S01.41	상악부의 열린 상처
+위턱부위
+S01.42	하악부의 열린 상처
+아래턱부위
+S01.48	볼 및 측두하악부 영역의 기타 및 여러 부위의 열린 상처
+S01.5	입술 및 구강의 열린 상처
+제외 : 치아의 탈구(S03.2)치아의 파절(S02.5)
+S01.50	입술의 열린 상처
+S01.51	볼점막의 열린 상처
+볼(내부의)
+S01.52	잇몸(치조돌기)의 열린 상처
+S01.53	혀와 입바닥의 열린 상처
+S01.54	구개의 열린 상처
+S01.58	입술 및 구강의 기타 및 여러 부분의 열린 상처
+S01.59	상세불명의 입술 및 구강 부분의 열린 상처
+S01.7	머리의 다발성 열린 상처
+S01.8	기타 머리 부분의 열린 상처
+S01.9	상세불명의 머리 부분의 열린 상처
+
+S02	두개골 및 안면골의 골절
+주 : 머리내 손상과 연관된 두개골 및 안면골 골절의 일차분류를 위해서는 제 Ⅱ권에 안내된 질병이환 및 사망분류준칙을 참조할 것.다음의 세세분류는 골절 및 열린 상처를 다분류하는 것이 불가능하거나 바람직하지 않은 경우, 보조 분류번호로 임의로 선택하여 사용할 수 있다. 폐쇄성 또는 개방성으로 명시되지 않은 골절은 폐쇄성으로 분류해야 한다.0 폐쇄성1 개방성
+S02.4	광대뼈 및 상악골의 골절
+S02.42	르포트 1
+S02.43	르포트 2
+S02.44	복합 중안면
+S02.45	한쪽 르포트 3
+S02.46	양쪽 르포트 3
+S02.47	관골궁
+S02.48	기타 광대뼈 및 상악골의 골절
+S02.49	상세불명의 광대뼈 및 상악골의 골절
+S02.5	치아의 파절
+파절치
+S02.52	법랑질만의 파절
+S02.53	치수 침범이 없는 치관 파절
+S02.54	치수 침범이 있는 치관 파절
+S02.55	치근 파절
+S02.56	치관-치근 파절
+S02.57	치아의 다발성 파절
+S02.59	상세불명의 치아의 파절
+S02.6	하악골의 골절
+아래턱뼈
+S02.62	관절돌기의 골절
+S02.63	아래관절돌기의 골절
+S02.64	갈고리돌기의 골절
+S02.65	가지의 골절
+S02.66	각의 골절
+S02.67	결합부위의 골절
+S02.68	기타 하악골 부위의 골절
+S02.69	상세불명 부위의 하악골의 골절
+S02.7	두개골 및 안면골을 침범하는 다발 골절
+S02.72	비안와-사골의 골절
+S02.78	두개골 및 안면골을 침범하는 기타 다발골절
+S02.8	기타 두개골 및 안면골의 골절
+제외 : 안와바닥(S02.3)안와천장(S02.1)
+S02.82	치조골의 골절
+S02.83	경구개의 골절
+구개
+S02.84	안와 내벽의 골절
+안와 NOS
+S02.88	기타 및 상세불명의 두개골 및 안면골의 골절
+S02.9	상세불명의 두개골 및 안면골 부분의 골절
+
+S03	머리의 관절 및 인대의 탈구, 염좌 및 긴장
+S03.0	턱의 탈구
+턱(연골, 반달연골)
+하악
+측두하악(관절)
+S03.1	코의 중격연골의 탈구
+S03.2	치아의 탈구
+S03.20	치아의 이탈구
+S03.21 치아의 함입 또는 정출
+S03.22	완전탈구
+S03.29	상세불명의 치아의 탈구
+S03.3	기타 및 상세불명의 머리 부분의 탈구
+S03.4	턱의 염좌 및 긴장
+측두하악(관절, 인대)
+S03.5	기타 및 상세불명의 머리 부분의 관절 및 인대의 염좌 및 긴장
+
+T85	기타 내부 인공삽입장치, 삽입물 및 이식편의 합병증
+제외 : 기관 및 조직의 이식 실패 및 거부(T86.-)
+T85.6	기타 명시된 내부 인공삽입장치, 삽입물 및 이식편의 기계적 합병증
+치과보찰물의 파절 및 상실
+~에 의한 T82.0에 나열된 병태 :
+경막상 및 경막하 주입 카테터
+복강내 투석카테터
+비흡수성 외과적 재료 NOS
+영구봉합
+제외 : 뼈복원의 영구적(철사)봉합의 기계적 합병증 (T84.1-T84.2)
+
+Z13	기타 질환 및 장애에 대한 특수 선별검사
+Z13.8	기타 명시된 질환 및 장애에 대한 특수 선별검사
+치아 장애
+내분비 및 대사 장애
+제외 : 당뇨병(Z13.1)
+
+Z29	기타 예방적 조치의 필요
+제외 : 예방적 외과수술(Z40.-)알레르기 향원에 대한 탈민감(Z51.6)
+Z29.0	격리
+외부환경으로부터 개인을 보호하거나 감염성질환에 접촉한 사람을 격리시키기 위한 입원
+Z29.1	예방적 면역요법
+면역혈청의 주입
+Z29.2	기타 예방적 화학요법
+화학예방법
+예방적 항생요법
+Z29.8	기타 명시된 예방적 조치
+Z29.9	상세불명의 예방적 조치
+
+Z46	기타 장치의 부착 및 조정
+제외 : 인공삽입 및 기타 장치의 존재 (Z95-Z97)단지 반복적인 처방전만 발급(Z76.0)장치의 기능이상 또는 기타 합병증 - 색인표 참조
+Z46.0	안경 및 콘택트렌즈의 부착 및 조정
+Z46.1	보청장치의 부착 및 조정
+Z46.2	신경계통 및 특수감각에 관련된 기타 장치의 부착 및 조정
+Z46.3	치과보철 장치의 부착 및 조정
+Z46.4	치열교정 장치의 부착 및 조정
+Z46.5	회장조루술 및 기타 장 장치의 부착 및 조정
+Z46.6	요로계 장치의 부착 및 조정
+Z46.7	정형외과적 장치의 부착 및 조정
+정형외과적 :	보조구
+석고붕대
+코르셋
+구두
+Z46.8	기타 명시된 장치의 부착 및 조정
+휠췌어
+Z46.9	상세불명의 장치의 부착 및 조정
+
+Z96	기타 기능성 삽입물의 존재
+제외 : 내부 인공삽입장치, 삽입물 및 이식편의 합병증(T82-T85)
+인공삽입물 및 기타 장치의 부착 및 조정(Z44-Z46)
+Z96.5	치근 및 하악골 삽입물의 존재
+Z96.9	상세불명의 기능적 삽입물의 존재
+
+Z97	기타 장치의 존재
+제외 : 내부 보철장치, 삽입물 및 이식편의 합병증 (T82-T85)보찰물 및 기타 장치의 부착 및 조정(Z44-Z46)뇌척수액배출장치의 존재(Z98.2)
+Z97.2	치아보철장치(전부, 일부)의 존재
+Z97.8	기타 명시된 장치의 존재
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const rawDataElement = document.getElementById('kcdRawData');
+            const treeContainer = document.getElementById('treeContainer');
+            const searchInput = document.getElementById('searchInput');
+            const expandAllBtn = document.getElementById('expandAllBtn');
+            const collapseAllBtn = document.getElementById('collapseAllBtn');
+            const searchStatus = document.getElementById('searchStatus');
+            const loader = document.getElementById('loader');
+
+            let kcdData = [];
+            let allDetailsElements = []; // 모든 <details> 요소를 저장할 배열
+
+            // 데이터 파싱 함수
+            function parseKcdData(text) {
+                const lines = text.split('\n').map(line => line.trim()).filter(line => line);
+                const data = [];
+                let currentChapterTitle = null;
+                let currentMainCategoryStack = []; // 현재 처리 중인 상위 카테고리 스택
+
+                // 코드 패턴: K00, K00.0, K00.00, M00, M00.0, S01.161 등
+                // M79.1_0 와 같은 형태도 고려
+                const codeRegex = /^([A-Z][0-9]{2,}(?:[\._]?[0-9A-Za-z]+)*)\s+(.+)/;
+                // 장 제목 패턴: 예) 구강, 침샘 및 턱의 질환(K00-K14)
+                const chapterRegex = /^(.*)\(([A-Z][0-9]+-[A-Z][0-9]+)\)$/;
+
+
+                for (let i = 0; i < lines.length; i++) {
+                    let line = lines[i];
+
+                    if (line.startsWith('(통계청홈페이지') || line === '한국표준질병사인분류' || line === '자료실)') {
+                        continue;
+                    }
+                    
+                    const chapterMatch = line.match(chapterRegex);
+                    if (chapterMatch) {
+                        currentChapterTitle = { 
+                            id: `chapter-${chapterMatch[2].replace('-', '_')}`, 
+                            title: chapterMatch[1].trim(), 
+                            range: chapterMatch[2].trim(),
+                            type: 'chapter',
+                            children: []
+                        };
+                        data.push(currentChapterTitle);
+                        currentMainCategoryStack = [currentChapterTitle]; // 챕터를 최상위로 설정
+                        continue;
+                    }
+
+                    const codeMatch = line.match(codeRegex);
+                    if (codeMatch) {
+                        const code = codeMatch[1];
+                        const title = codeMatch[2].trim();
+                        const newItem = { 
+                            id: `item-${code.replace(/\./g, '-').replace(/_/g,'--')}`, // DOM ID로 사용하기 위해 .과 _를 변경
+                            code: code, 
+                            title: title, 
+                            children: [], 
+                            includes: [], 
+                            excludes: [], 
+                            notes: [],
+                            type: 'item'
+                        };
+                        
+                        const level = code.split('.').length -1;
+
+                        // Defensive check for currentMainCategoryStack
+                        if (!Array.isArray(currentMainCategoryStack)) {
+                            console.error("CRITICAL: currentMainCategoryStack was not an array before hierarchy adjustment. Current value:", currentMainCategoryStack, "Resetting.");
+                            // Attempt to reset to a plausible state based on whether a chapter was last seen.
+                            if (currentChapterTitle) {
+                                currentMainCategoryStack = [currentChapterTitle];
+                            } else {
+                                currentMainCategoryStack = []; // Fallback to an empty stack
+                            }
+                        }
+
+                        // Adjust stack for hierarchy
+                        // The loop condition ensures we don't pop if the stack is too small or already at the correct level.
+                        while (currentMainCategoryStack.length > 0 && // Ensure stack is not empty before checking its top element's level implicitly
+                               currentMainCategoryStack.length > level + 1 && // Current stack depth is greater than target parent depth
+                               currentMainCategoryStack.length > 1) { // Don't pop the chapter if it's the only thing
+                            currentMainCategoryStack.pop();
+                        }
+                        
+                        const parent = currentMainCategoryStack.length > 0 ? currentMainCategoryStack[currentMainCategoryStack.length - 1] : null;
+
+                        if (parent && parent.children) {
+                             parent.children.push(newItem);
+                        } else if (currentChapterTitle && currentChapterTitle.children && currentMainCategoryStack.length === 1 && currentMainCategoryStack[0] === currentChapterTitle) {
+                            // This case handles items directly under a chapter if the stack was just [currentChapterTitle]
+                            currentChapterTitle.children.push(newItem);
+                        }
+                         else { 
+                            data.push(newItem); // Fallback: add to top level if no suitable parent found
+                        }
+                        currentMainCategoryStack.push(newItem);
+
+
+                        // 다음 줄부터 메타 정보 (포함, 제외, 주석 등) 확인
+                        let metaLineIndex = i + 1;
+                        while (metaLineIndex < lines.length) {
+                            const nextLine = lines[metaLineIndex];
+                            if (nextLine.match(codeRegex) || nextLine.match(chapterRegex)) break; // 다음 코드가 나오면 중단
+
+                            if (nextLine.startsWith('포함 :')) {
+                                newItem.includes.push(nextLine.substring(5).trim());
+                            } else if (nextLine.startsWith('제외 :')) {
+                                newItem.excludes.push(nextLine.substring(5).trim());
+                            } else if (nextLine.startsWith('주 :')) {
+                                newItem.notes.push(nextLine.substring(3).trim());
+                            } else if (nextLine.startsWith('[0-9]') || nextLine.startsWith('(470~')) { // 특별 주석 처리
+                                newItem.notes.push(nextLine.trim());
+                            }
+                            else { // 일반 설명/주석
+                                if (newItem.notes.length > 0 && 
+                                    metaLineIndex > 0 && // Ensure lines[metaLineIndex-1] is valid
+                                    !lines[metaLineIndex-1].match(/^(포함|제외|주)\s*:/) && 
+                                    !lines[metaLineIndex-1].match(codeRegex) && 
+                                    !lines[metaLineIndex-1].match(chapterRegex) ) {
+                                     newItem.notes[newItem.notes.length -1] += '\n' + nextLine.trim();
+                                } else {
+                                    newItem.notes.push(nextLine.trim());
+                                }
+                            }
+                            metaLineIndex++;
+                        }
+                        i = metaLineIndex - 1; // 다음 메인 루프 인덱스 조정
+                    } else if (currentMainCategoryStack.length > 0) {
+                        const currentItem = currentMainCategoryStack[currentMainCategoryStack.length - 1];
+                        if (currentItem && line && !line.match(chapterRegex)) { 
+                             if (currentItem.notes && currentItem.notes.length > 0 && 
+                                 i > 0 && // Ensure lines[i-1] is valid
+                                 !lines[i-1].match(/^(포함|제외|주)\s*:/) && 
+                                 !lines[i-1].match(codeRegex) && 
+                                 !lines[i-1].match(chapterRegex)) {
+                                currentItem.notes[currentItem.notes.length -1] += '\n' + line.trim();
+                             } else if (currentItem.notes) { // Make sure notes array exists
+                                currentItem.notes.push(line.trim());
+                             } else if (currentItem) { // If notes array doesn't exist, create it
+                                currentItem.notes = [line.trim()];
+                             }
+                        }
+                    }
+                }
+                return data;
+            }
+            
+            // HTML 트리 생성 함수
+            function createTreeHtml(nodes, level = 0) {
+                if (!nodes || nodes.length === 0) return '';
+                // Ensure `pl-4 md:pl-6` is only applied if level > 0, meaning it's a child list.
+                let ulClass = "list-none p-0 m-0"; // Base class for all ULs
+                if (level > 0) {
+                    ulClass += " pl-4 md:pl-6";
+                }
+                let html = `<ul class="${ulClass}">`;
+                
+                nodes.forEach(node => {
+                    // Ensure node.id is valid, fallback if not (should not happen with current parsing)
+                    const nodeId = node.id || `node-fallback-${Math.random().toString(36).substr(2, 9)}`;
+                    html += `<li id="${nodeId}" class="my-1">`;
+
+                    if (node.type === 'chapter') {
+                        html += `<details class="bg-indigo-50 rounded" open>`; // Chapters open by default
+                        html += `<summary class="text-lg font-semibold text-indigo-700 p-2 outline-none focus:ring-2 focus:ring-indigo-300">`;
+                        html += `<span class="mr-2">📁</span> `; // Simple emoji icon
+                        html += `${node.title} (${node.range})</summary>`;
+                    } else { // item
+                        html += `<details class="rounded hover:bg-gray-50">`;
+                        html += `<summary class="flex items-center p-1 outline-none focus:ring-2 focus:ring-blue-300">`;
+                        // Add a small triangle or plus/minus icon for item expand/collapse state
+                        // Using a simple text-based marker for now, can be replaced with SVG or font icon
+                        html += `<span class="details-marker-custom w-4 inline-block mr-1 text-center text-gray-500">▶</span>`;
+                        html += `<span class="code-item text-sm md:text-base mr-2">${node.code}</span>`;
+                        html += `<span class="title-item text-sm md:text-base">${node.title}</span>`;
+                        html += `</summary>`;
+                    }
+
+                    if (node.type === 'item' && ( (node.includes && node.includes.length > 0) || (node.excludes && node.excludes.length > 0) || (node.notes && node.notes.length > 0))) {
+                        html += `<div class="meta-info mt-1 mb-1 py-1">`;
+                        if(node.includes) node.includes.forEach(inc => html += `<p class="include-text"><strong class="font-semibold">포함:</strong> ${inc.replace(/\n/g, '<br>')}</p>`);
+                        if(node.excludes) node.excludes.forEach(exc => html += `<p class="exclude-text"><strong class="font-semibold">제외:</strong> ${exc.replace(/\n/g, '<br>')}</p>`);
+                        if(node.notes) node.notes.forEach(note => html += `<p class="note-text"><strong class="font-semibold">주석:</strong> ${note.replace(/\n/g, '<br>')}</p>`);
+                        html += `</div>`;
+                    }
+                    
+                    if (node.children && node.children.length > 0) {
+                        html += createTreeHtml(node.children, level + 1);
+                    }
+                    html += `</details></li>`;
+                });
+                html += `</ul>`;
+                return html;
+            }
+
+            // Update details marker based on open state
+            function updateDetailsMarkers() {
+                const allSummaries = treeContainer.querySelectorAll('details > summary');
+                allSummaries.forEach(summary => {
+                    const details = summary.parentElement;
+                    const marker = summary.querySelector('.details-marker-custom');
+                    if (marker) { // Only update if custom marker exists
+                        if (details.hasAttribute('open')) {
+                            marker.textContent = '▼'; // Down arrow when open
+                        } else {
+                            marker.textContent = '▶'; // Right arrow when closed
+                        }
+                    }
+                });
+            }
+            
+            treeContainer.addEventListener('toggle', (event) => {
+                if (event.target.tagName === 'DETAILS') {
+                    const summary = event.target.querySelector('summary');
+                    const marker = summary.querySelector('.details-marker-custom');
+                    if(marker){
+                         if (event.target.open) {
+                            marker.textContent = '▼';
+                        } else {
+                            marker.textContent = '▶';
+                        }
+                    }
+                }
+            }, true); // Use capture phase to catch toggle events on details
+
+            // 검색 기능
+            let searchDebounceTimer;
+            searchInput.addEventListener('input', () => {
+                clearTimeout(searchDebounceTimer);
+                searchDebounceTimer = setTimeout(() => {
+                    performSearch(searchInput.value.trim().toLowerCase());
+                }, 300); 
+            });
+
+            function performSearch(query) {
+                let matchCount = 0;
+                const treeItems = treeContainer.querySelectorAll('li[id^="item-"], li[id^="chapter-"]');
+                
+                treeItems.forEach(item => {
+                    const summary = item.querySelector('summary');
+                    if (summary) {
+                        // Restore original content before applying new highlight or removing old one
+                        if (summary.dataset.originalContent) {
+                            summary.innerHTML = summary.dataset.originalContent;
+                        } else {
+                            summary.dataset.originalContent = summary.innerHTML; // Store if not already stored
+                        }
+                        summary.classList.remove('bg-yellow-200', 'ring-2', 'ring-yellow-500');
+                    }
+                });
+
+                if (!query) {
+                    searchStatus.textContent = '';
+                    // Reset all details to closed state, except chapters which are open by default
+                    allDetailsElements.forEach(details => {
+                        const isChapter = details.classList.contains('bg-indigo-50'); // Check if it's a chapter
+                        details.open = isChapter; // Chapters remain open, others close
+                    });
+                    updateDetailsMarkers(); // Update markers after changing open state
+                    return;
+                }
+
+                let firstMatchElement = null;
+
+                treeItems.forEach(itemLi => {
+                    const detailsElement = itemLi.querySelector('details');
+                    const summaryElement = itemLi.querySelector('summary');
+                    if (!summaryElement || !detailsElement) return;
+
+                    // Ensure original content is always from a clean state for highlighting
+                    summaryElement.innerHTML = summaryElement.dataset.originalContent; 
+                    
+                    const codeElement = summaryElement.querySelector('.code-item');
+                    const titleElement = summaryElement.querySelector('.title-item'); // This is the main title span
+                    let itemText = '';
+                    // For chapters, the title is directly in summary, not in .title-item
+                    if (detailsElement.classList.contains('bg-indigo-50')) { // It's a chapter
+                        // Extract chapter title text carefully, avoiding icons
+                        const chapterTitleNode = Array.from(summaryElement.childNodes).find(node => node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== '');
+                        if(chapterTitleNode) itemText += chapterTitleNode.textContent.toLowerCase();
+
+                    } else { // It's an item
+                         if (codeElement) itemText += codeElement.textContent.toLowerCase() + ' ';
+                         if (titleElement) itemText += titleElement.textContent.toLowerCase();
+                    }
+                    
+                    const metaInfoDiv = detailsElement.querySelector('.meta-info');
+                    if (metaInfoDiv) {
+                        itemText += ' ' + metaInfoDiv.textContent.toLowerCase();
+                    }
+
+                    if (itemText.includes(query)) {
+                        matchCount++;
+                        const originalSummaryHTML = summaryElement.dataset.originalContent;
+                        const regex = new RegExp(query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+                        
+                        summaryElement.innerHTML = originalSummaryHTML.replace(regex, match => `<mark class="highlight">${match}</mark>`);
+                        summaryElement.classList.add('bg-yellow-200', 'ring-2', 'ring-yellow-500');
+
+                        if (!firstMatchElement) {
+                            firstMatchElement = summaryElement;
+                        }
+
+                        let parent = detailsElement;
+                        while (parent && parent !== document.body) {
+                            if (parent.tagName === 'DETAILS') {
+                                parent.open = true;
+                            }
+                            parent = parent.parentElement;
+                        }
+                    } else {
+                        detailsElement.open = false; // Close non-matching items
+                         // If it's a chapter and doesn't match, it should also close unless a child matches.
+                         // This is handled by opening parents of matching children.
+                    }
+                });
+
+                if (firstMatchElement) {
+                    firstMatchElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                searchStatus.textContent = query ? `${matchCount}개 항목을 찾았습니다.` : '';
+                updateDetailsMarkers(); // Update markers after search changes open states
+            }
+
+            expandAllBtn.addEventListener('click', () => {
+                allDetailsElements.forEach(details => details.open = true);
+                updateDetailsMarkers();
+            });
+
+            collapseAllBtn.addEventListener('click', () => {
+                allDetailsElements.forEach(details => {
+                     // Keep chapters open by default, close items
+                    const isChapter = details.classList.contains('bg-indigo-50');
+                    details.open = isChapter;
+                });
+                searchInput.value = '';
+                performSearch(''); // This will also call updateDetailsMarkers
+            });
+            
+            function initialize() {
+                loader.style.display = 'block';
+                treeContainer.style.display = 'none';
+
+                setTimeout(() => {
+                    try {
+                        const rawText = rawDataElement.textContent;
+                        kcdData = parseKcdData(rawText);
+                        treeContainer.innerHTML = createTreeHtml(kcdData);
+                        allDetailsElements = Array.from(treeContainer.querySelectorAll('details'));
+                        updateDetailsMarkers(); // Initial marker setup
+                    } catch (error) {
+                        console.error("Error during initialization:", error);
+                        treeContainer.innerHTML = `<p class="text-red-500">데이터를 불러오거나 처리하는 중 오류가 발생했습니다: ${error.message}</p>`;
+                    } finally {
+                        loader.style.display = 'none';
+                        treeContainer.style.display = 'block';
+                    }
+                }, 50);
+            }
+
+            initialize();
+        });
+    </script>
+</body>
+</html>
