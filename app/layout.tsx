@@ -3,12 +3,12 @@ import type { ReactNode } from 'react'
 
 import { SiteHeader } from '@/components/layout/site-header'
 import { ThemeProvider } from '@/components/layout/theme-provider'
-import { absoluteSiteUrl, SITE_NAME } from '@/lib/format'
+import { absoluteSiteUrl, SITE_NAME, SITE_ORIGIN } from '@/lib/format'
 
 import './globals.css'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://alibowbow.github.io'),
+  metadataBase: new URL(SITE_ORIGIN),
   title: {
     default: `${SITE_NAME} — KCD 치과 코드 레퍼런스`,
     template: `%s | ${SITE_NAME}`,

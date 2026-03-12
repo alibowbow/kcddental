@@ -1,6 +1,6 @@
 import type { NextConfig } from 'next'
 
-const isProduction = process.env.NODE_ENV === 'production'
+const isGitHubPagesBuild = process.env.DEPLOY_TARGET === 'github-pages'
 
 const nextConfig: NextConfig = {
   output: 'export',
@@ -8,8 +8,8 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: isProduction ? '/kcddental' : '',
-  assetPrefix: isProduction ? '/kcddental/' : undefined,
+  basePath: isGitHubPagesBuild ? '/kcddental' : '',
+  assetPrefix: isGitHubPagesBuild ? '/kcddental/' : undefined,
 }
 
 export default nextConfig

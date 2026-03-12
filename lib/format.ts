@@ -1,9 +1,32 @@
 export const SITE_NAME = 'KCD Dental Reference'
-export const SITE_ORIGIN = 'https://alibowbow.github.io'
-export const SITE_BASE_PATH = '/kcddental'
+const DEFAULT_SITE_ORIGIN = 'https://alibowbow.github.io'
+const GITHUB_PAGES_BASE_PATH = '/kcddental'
+
+function stripTrailingSlash(value: string) {
+  return value.endsWith('/') ? value.slice(0, -1) : value
+}
+
+function resolveSiteOrigin() {
+  const explicitOrigin = process.env.NEXT_PUBLIC_SITE_URL?.trim()
+  if (explicitOrigin) {
+    return stripTrailingSlash(explicitOrigin)
+  }
+
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`
+  }
+
+  return DEFAULT_SITE_ORIGIN
+}
+
+export const SITE_ORIGIN = resolveSiteOrigin()
+export const SITE_BASE_PATH = process.env.DEPLOY_TARGET === 'github-pages' ? GITHUB_PAGES_BASE_PATH : ''
 
 export function withBasePath(pathname: string) {
   const normalized = pathname.startsWith('/') ? pathname : `/${pathname}`
+  if (!SITE_BASE_PATH) {
+    return normalized
+  }
   return `${SITE_BASE_PATH}${normalized === '/' ? '/' : normalized}`
 }
 
