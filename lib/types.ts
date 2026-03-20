@@ -46,7 +46,7 @@ export interface EnrichedDiseaseEntry {
     approach: string
     description: string
     evidence_level: 'A' | 'B' | 'C' | 'Expert'
-    is_insured: boolean
+    is_insured?: boolean | null
   }[]
   complications?: string[]
   prognosis?: string | null

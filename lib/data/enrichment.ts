@@ -32,9 +32,47 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
       '통증의 위치, 시작 시점, 지속 시간, 유발 요인, 기존 치과 치료 이력을 함께 확인합니다.',
       '필요하면 타진, 동요도, 치수, 저작 검사를 추가해 병변 범위와 관련 구조의 상태를 평가합니다.',
     ],
+    treatment: [
+      {
+        approach: '우식 제거와 수복 치료',
+        description:
+          '우식 부위를 제거한 뒤 치아 상태와 위치에 따라 아말감, 복합레진, 글래스아이오노머 시멘트, 인레이 같은 수복 재료로 형태와 기능을 회복합니다.',
+        evidence_level: 'Expert',
+        is_insured: null,
+      },
+      {
+        approach: '깊은 우식의 치수 보호',
+        description:
+          '질병관리청 설명 자료에는 우식이 깊은 경우 치아 신경을 보호하는 약제를 도포한 뒤 수복하는 과정을 소개합니다. 병변이 더 깊으면 치수 질환 평가가 필요할 수 있습니다.',
+        evidence_level: 'Expert',
+        is_insured: null,
+      },
+    ],
     complications: ['치수염', '근단 주위 염증 또는 농양', '치아 파절 및 치아 상실'],
     prognosis:
       '초기 우식은 조기에 발견해 관리하면 보존적 치료로 회복 가능성이 높습니다. 치료가 지연되면 치수 질환이나 발치로 이어질 수 있어 정기 검진이 중요합니다.',
+    insurance: {
+      covered: true,
+      coverage_condition:
+        '진료일 기준 만 5세 이상 12세 이하 아동의 치수병변이 없는 치아우식증이 있는 영구치(제3대구치 제외)에 광중합형 복합레진 충전을 시행한 경우 건강보험이 적용됩니다.',
+      claim_codes: [
+        {
+          code: '차-13다',
+          name: '광중합형 복합레진 충전',
+          notes: '동일치아의 치료 종료 시점 면수를 기준으로 1회 산정합니다.',
+        },
+      ],
+      denial_risk_factors: ['신경치료를 시행한 치아', '마모, 침식, 파절 등 치아우식증이 아닌 사유로 시행한 경우'],
+      claim_tips: [
+        '동일치아 재충전은 적용 기간과 재료에 따라 50% 산정 기준이 달라질 수 있어 최신 HIRA FAQ 확인이 필요합니다.',
+      ],
+      age_restrictions: '진료일 기준 만 5세 이상 12세 이하',
+      frequency_limit: '동일치아 다면 우식은 치료 종료 시점 1회 산정',
+      prior_auth_required: false,
+      source_title: '광중합형 복합레진 충전의 급여기준이 변경되었다는데 어떻게 되나요? | 건강보험심사평가원',
+      source_url: 'https://www.hira.or.kr/bbsDummy.do?brdBltNo=47600&brdScnBltNo=4&pgmid=HIRAA010006011000',
+      effective_date: '2020-05-01',
+    },
     prevention: [
       '불소 치약을 사용해 규칙적으로 칫솔질합니다.',
       '치실이나 보조 구강위생용품으로 치아 사이 음식물과 치태를 제거합니다.',
@@ -116,6 +154,29 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
       '통증 양상과 자극 후 지속 시간을 확인하고, 타진과 치수 생활력 검사를 함께 시행합니다.',
       '방사선 촬영으로 치근단 부위 염증, 농양, 낭성 변화 여부를 평가합니다.',
       '기존 충치, 균열, 외상력, 과거 근관치료 여부를 함께 확인합니다.',
+    ],
+    treatment: [
+      {
+        approach: '가역성 치수염 단계의 원인 제거',
+        description:
+          '치수 보존이 가능한 단계에서는 충치를 제거하고 치아를 수복해 염증과 통증의 원인을 줄입니다. 경우에 따라 일시적 충전재를 사용한 뒤 영구 수복으로 교체할 수 있습니다.',
+        evidence_level: 'Expert',
+        is_insured: null,
+      },
+      {
+        approach: '비가역성 치수염 또는 괴사의 근관치료',
+        description:
+          '치수 손상이 광범위하면 통증을 조절하고 감염을 제거하기 위해 근관치료가 필요할 수 있습니다. 치수와 근관 내 염증 조직을 제거하고 근관을 정리한 뒤 충전합니다.',
+        evidence_level: 'Expert',
+        is_insured: null,
+      },
+      {
+        approach: '심한 근단 병변의 발치 또는 외과적 처치',
+        description:
+          '근관치료에도 증상이 지속되거나 치아 손상이 심하면 발치나 치근단 절제술 같은 추가 처치가 필요할 수 있습니다.',
+        evidence_level: 'Expert',
+        is_insured: null,
+      },
     ],
     complications: ['근단 주위 농양', '누공 형성', '낭성 병변', '발치가 필요한 수준의 치아 손상'],
     prognosis:
@@ -214,9 +275,52 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
       '파노라마나 치근단 방사선 사진으로 치조골 소실과 치아 상태를 평가합니다.',
       '치주낭 깊이, 부착 소실, 치아 동요도, 분지부 병변 등을 치주검사로 확인합니다.',
     ],
+    treatment: [
+      {
+        approach: '치석 제거와 구강위생 관리',
+        description:
+          '초기 잇몸 염증은 치석제거술과 올바른 칫솔질, 치실·치간칫솔 사용 같은 구강위생 관리로 회복 가능성이 높습니다.',
+        evidence_level: 'Expert',
+        is_insured: null,
+      },
+      {
+        approach: '치근활택술과 비외과적 치주치료',
+        description:
+          '치주염으로 진행하면 치은 아래 치석과 치태를 줄이기 위해 치근활택술 같은 비외과적 치주치료가 필요할 수 있습니다.',
+        evidence_level: 'Expert',
+        is_insured: null,
+      },
+      {
+        approach: '중증 진행 시 치주수술과 유지관리',
+        description:
+          '깊은 치주낭이나 광범위한 조직 파괴가 있으면 치은절제술, 치주판막수술, 골이식술, 조직 유도 재생술 같은 외과적 치료와 3~6개월 간격의 유지관리가 고려됩니다.',
+        evidence_level: 'Expert',
+        is_insured: null,
+      },
+    ],
     complications: ['치은 퇴축', '치조골 소실', '치아 동요와 치아 상실'],
     prognosis:
       '치은염 단계에서는 회복 가능성이 높지만, 치주염으로 진행해 잇몸뼈가 손상되면 원래 상태로 완전히 되돌리기 어렵습니다.',
+    insurance: {
+      covered: true,
+      coverage_condition:
+        '만 19세 이상에서 후속 치주질환 처치 없이 전악 치석제거만으로 치료가 종료되는 경우 건강보험이 연 1회 적용됩니다.',
+      claim_codes: [
+        {
+          code: 'U2233',
+          name: '치석제거 나. 전악',
+          notes: '후속 치주질환 처치 없이 전악 치석제거만으로 종료되는 경우입니다.',
+        },
+      ],
+      denial_risk_factors: ['구취 제거 목적', '치아 착색물질 제거 목적', '치아 교정 및 보철을 위한 예방 목적 시행', '연 1회 초과 시행'],
+      claim_tips: ['시술일 사전 등록 여부와 연간 수진 이력을 먼저 확인하는 편이 안전합니다.'],
+      age_restrictions: '전악 치석제거는 만 19세 이상',
+      frequency_limit: '연 1회(매년 1월 1일~12월 31일)',
+      prior_auth_required: false,
+      source_title: '치석제거 급여안내 | 국민건강보험공단',
+      source_url: 'https://www.nhis.or.kr/static/html/wbma/c/wbmac0218.html',
+      effective_date: '2018-01-01',
+    },
     prevention: [
       '잇몸에서 치아 방향으로 쓸어 올리는 올바른 칫솔질을 합니다.',
       '칫솔질 후 치실이나 치간칫솔로 치아 사이 치태를 제거합니다.',
@@ -300,6 +404,29 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
       '병변의 모양과 위치를 육안으로 확인하고, 발생 시기와 반복 여부를 묻습니다.',
       '병변이 2~3주 이상 지속되거나 치료에 반응하지 않으면 조직검사를 포함한 추가 평가가 필요합니다.',
       '반복되거나 전신질환이 의심되면 빈혈, 면역저하, 혈액질환 등을 감별하기 위한 검사를 고려합니다.',
+    ],
+    treatment: [
+      {
+        approach: '원인 교정과 대증 치료',
+        description:
+          '구내염은 감염, 자가 면역, 방사선 조사 등 원인에 대한 치료와 함께 통증을 줄이기 위한 대증 치료를 병행합니다.',
+        evidence_level: 'Expert',
+        is_insured: null,
+      },
+      {
+        approach: '감염성 구내염의 보존적·약물 치료',
+        description:
+          '단순포진 구내염은 구강 위생 관리, 수분 섭취, 구강 함수와 함께 항바이러스제를 사용할 수 있고, 구강 칸디다증은 항진균제가 도움이 될 수 있습니다.',
+        evidence_level: 'Expert',
+        is_insured: null,
+      },
+      {
+        approach: '비감염성 구내염의 점막 보호와 반복 병변 평가',
+        description:
+          '아프타 구내염 등은 점막 보호제, 국소 치료, 통증 조절을 중심으로 관리하며, 병변이 오래 지속되거나 반복되면 전문 진찰과 추가 검사가 필요합니다.',
+        evidence_level: 'Expert',
+        is_insured: null,
+      },
     ],
     complications: ['식사와 수분 섭취 불편', '소아의 탈수 가능성', '반복성 병변에 따른 삶의 질 저하', '지속 병변의 경우 악성 질환 감별 지연 위험'],
     prognosis:

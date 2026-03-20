@@ -62,6 +62,55 @@ export default async function ClaimDetailPage({ params }: { params: Promise<{ co
               {claim.coverage_condition ? (
                 <p className="mt-2 text-sm text-slate-700 dark:text-slate-200">{claim.coverage_condition}</p>
               ) : null}
+              {claim.claim_codes?.length ? (
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {claim.claim_codes.map((item) => (
+                    <span
+                      key={`${claim.code}-${item.code}`}
+                      className="rounded-full border border-slate-300 px-2.5 py-1 text-xs font-semibold dark:border-slate-700"
+                    >
+                      {item.code} {item.name}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
+              <div className="mt-4 grid gap-3 md:grid-cols-2">
+                {claim.age_restrictions ? (
+                  <InfoCard title="연령 기준" body={claim.age_restrictions} />
+                ) : null}
+                {claim.frequency_limit ? (
+                  <InfoCard title="횟수 기준" body={claim.frequency_limit} />
+                ) : null}
+              </div>
+              {claim.claim_tips?.length ? (
+                <div className="mt-4">
+                  <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">청구 팁</h3>
+                  <ul className="mt-2 space-y-2 text-sm text-slate-700 dark:text-slate-200">
+                    {claim.claim_tips.map((tip) => (
+                      <li key={tip} className="rounded-xl border border-slate-200/70 px-3 py-2 dark:border-slate-800">
+                        {tip}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+              {claim.denial_risk_factors?.length ? (
+                <div className="mt-4">
+                  <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">주의할 제외/불인정 위험</h3>
+                  <ul className="mt-2 space-y-2 text-sm text-slate-700 dark:text-slate-200">
+                    {claim.denial_risk_factors.map((item) => (
+                      <li key={item} className="rounded-xl border border-slate-200/70 px-3 py-2 dark:border-slate-800">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+              {claim.notes ? (
+                <div className="mt-4 rounded-2xl border border-slate-200/70 bg-slate-50/80 p-3 text-sm text-slate-700 dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-200">
+                  {claim.notes}
+                </div>
+              ) : null}
               <p className="mt-3 text-sm text-slate-500 dark:text-slate-400">
                 {claim.source_title} / {claim.effective_date}
               </p>
@@ -85,6 +134,15 @@ export default async function ClaimDetailPage({ params }: { params: Promise<{ co
           상세 페이지로 돌아가기
         </Link>
       </section>
+    </div>
+  )
+}
+
+function InfoCard({ title, body }: { title: string; body: string }) {
+  return (
+    <div className="rounded-2xl border border-slate-200/70 bg-slate-50/80 p-3 dark:border-slate-800 dark:bg-slate-900/60">
+      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">{title}</p>
+      <p className="mt-2 text-sm text-slate-700 dark:text-slate-200">{body}</p>
     </div>
   )
 }
