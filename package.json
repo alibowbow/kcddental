@@ -10,6 +10,7 @@
     "extract:kcd": "tsx scripts/extract-kcd.ts",
     "verify:kcd": "tsx scripts/verify-kcd.ts",
     "validate:data": "tsx scripts/validate-data.ts",
+    "report:content": "tsx scripts/report-content-coverage.ts",
     "test:extractor": "tsx --test scripts/extract-kcd.test.ts"
   },
   "dependencies": {
