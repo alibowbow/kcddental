@@ -1438,4 +1438,500 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
       ],
     },
   },
+  'K06.0': {
+    code: 'K06.0',
+    name_en: 'Gingival recession',
+    synonyms_ko: ['치은퇴축', '잇몸 내려감'],
+    definition:
+      '치은퇴축은 잇몸이 치아에서 점점 물러나면서 치근 표면이 드러나는 상태입니다. 단순 미용 문제가 아니라 시림, 치근 우식, 청결 어려움으로 이어질 수 있습니다.',
+    pathophysiology:
+      '잇몸 가장자리가 내려가면 원래 잇몸으로 덮여 있던 치근 표면이 노출됩니다. 이 부위는 법랑질보다 약해서 자극과 우식에 더 취약합니다.',
+    etiology: ['과도한 칫솔질', '치주조직 손상 또는 과거 잇몸질환', '흡연', '치아 위치 이상이나 얇은 잇몸 조직'],
+    risk_factors: ['세게 양치하는 습관', '치태·치석 관리 부족', '흡연', '잇몸이 얇은 체질', '교합 외상 가능성'],
+    anatomy_involved: ['치은 변연', '노출된 치근 표면', '치경부 주변 조직'],
+    symptoms: [
+      {
+        name: '치아가 길어 보이거나 잇몸이 내려간 것처럼 보일 수 있습니다.',
+        severity: 'mild',
+        is_pathognomonic: false,
+      },
+      {
+        name: '찬 것에 시리고 양치할 때 불편하거나, 치근 우식 위험이 커질 수 있습니다.',
+        severity: 'moderate',
+        is_pathognomonic: false,
+      },
+    ],
+    diagnostic_criteria: [
+      '구강검진으로 잇몸 경계와 치근 노출 범위를 확인합니다.',
+      '잇몸질환, 양치 습관, 흡연 여부 같은 배경 요인을 함께 평가합니다.',
+      '필요하면 치주검사와 치과 X-ray로 지지조직 상태를 확인합니다.',
+    ],
+    treatment: [
+      {
+        approach: '진행 억제와 민감도 관리',
+        description:
+          '양치 습관을 교정하고 치태를 줄이며, 민감도 완화용 관리와 치근 보호를 먼저 시행합니다.',
+        evidence_level: 'Expert',
+        is_insured: null,
+      },
+      {
+        approach: '치은이식 등 연조직 수술',
+        description:
+          '심미 문제나 시림, 치근 노출이 뚜렷하면 치은이식 같은 연조직 처치를 고려할 수 있습니다.',
+        evidence_level: 'Expert',
+        is_insured: null,
+      },
+    ],
+    complications: ['치근 시림', '치근 우식', '칫솔질 불편', '심미적 불만'],
+    prognosis:
+      '이미 내려간 잇몸이 저절로 다시 올라오는 경우는 드물지만, 원인을 줄이면 진행 억제와 증상 완화는 충분히 가능합니다.',
+    prevention: [
+      '부드러운 칫솔로 과도한 힘을 주지 않고 양치합니다.',
+      '치태와 치석을 정기적으로 관리합니다.',
+      '흡연을 줄이고 시림이나 잇몸 후퇴가 보이면 조기에 진료를 받습니다.',
+    ],
+    patient_friendly_summary:
+      '치은퇴축은 잇몸이 줄어들어 치아 뿌리가 보이는 상태입니다. 그냥 나이 탓으로만 넘기지 말고, 시림이나 잇몸 후퇴가 느껴지면 원인을 찾아 진행을 늦추는 것이 중요합니다.',
+    external: {
+      pubmed_query: 'gingival recession root sensitivity K06.0',
+      youtube_query: '치은퇴축 잇몸 내려감',
+      references: [
+        {
+          title: 'Gum Recession: Causes, Prevention, Surgery & Treatment | Cleveland Clinic',
+          url: 'https://my.clevelandclinic.org/health/diseases/22753-gum-recession',
+          type: 'official',
+          year: 2025,
+        },
+      ],
+    },
+    provenance: {
+      status: 'pending',
+      updated_at: '2026-03-21',
+      sources: [
+        {
+          title: 'Gum Recession: Causes, Prevention, Surgery & Treatment | Cleveland Clinic',
+          url: 'https://my.clevelandclinic.org/health/diseases/22753-gum-recession',
+          year: 2025,
+          note: '치근 노출, 시림, 진행 억제 중심 치료와 예방을 K06.0 설명에 반영했습니다.',
+        },
+      ],
+    },
+  },
+  'K06.1': {
+    code: 'K06.1',
+    name_en: 'Gingival hyperplasia',
+    synonyms_ko: ['치은비대', '잇몸 비대'],
+    definition:
+      '치은비대는 잇몸 조직이 비정상적으로 두꺼워지거나 커져서 치아를 덮는 상태입니다. 약물, 염증, 유전, 호르몬 변화가 배경이 될 수 있습니다.',
+    pathophysiology:
+      '치은 조직이 과증식하면 치아가 짧아 보이고 음식물과 치태가 더 잘 끼게 됩니다. 이 때문에 청결이 더 어려워지고 염증이 악화될 수 있습니다.',
+    etiology: ['약물 유발', '만성 염증과 치태', '유전성 경향', '호르몬 변화'],
+    risk_factors: ['항경련제 복용', '면역억제제 또는 칼슘통로차단제 복용', '구강위생 불량', '호르몬 변화'],
+    anatomy_involved: ['치은', '치간유두', '치아 주변 연조직'],
+    symptoms: [
+      {
+        name: '잇몸이 붓고 두꺼워져 치아가 짧아 보일 수 있습니다.',
+        severity: 'mild',
+        is_pathognomonic: false,
+      },
+      {
+        name: '잇몸 출혈, 청결 곤란, 저작 불편, 심하면 치아를 덮는 과증식이 생길 수 있습니다.',
+        severity: 'moderate',
+        is_pathognomonic: false,
+      },
+    ],
+    diagnostic_criteria: [
+      '구강검진으로 잇몸 과증식의 범위와 염증 정도를 확인합니다.',
+      '약물 복용력과 전신 상태를 함께 묻습니다.',
+      '필요하면 치석, 치주 상태, 다른 점막 병변과 감별합니다.',
+    ],
+    treatment: [
+      {
+        approach: '구강위생 개선과 원인 점검',
+        description:
+          '플라그를 줄이고 약물 또는 전신 요인을 점검하는 것이 우선입니다. 경우에 따라 처방 의사와 약물 조정 여부를 상의할 수 있습니다.',
+        evidence_level: 'Expert',
+        is_insured: null,
+      },
+      {
+        approach: '치은절제 등 연조직 처치',
+        description:
+          '과증식이 심해서 청결이나 기능에 문제가 크면 잇몸 절제 같은 처치를 고려할 수 있습니다.',
+        evidence_level: 'Expert',
+        is_insured: null,
+      },
+    ],
+    complications: ['청결 악화', '출혈', '저작 불편', '심미 문제'],
+    prognosis:
+      '원인을 조절하면 좋아질 수 있지만, 약물이나 유전 배경이 있으면 재발 가능성도 있어 추적 관리가 필요합니다.',
+    prevention: [
+      '정기적으로 치태와 치석을 관리합니다.',
+      '잇몸이 갑자기 붓기 시작하면 복용 중인 약과 함께 치과 상담을 받습니다.',
+      '증식이 심해지기 전 조기에 관리하면 기능 문제를 줄이기 쉽습니다.',
+    ],
+    patient_friendly_summary:
+      '치은비대는 잇몸이 두꺼워지고 커져서 치아를 덮는 상태입니다. 단순 붓기처럼 보여도 약물이나 염증과 연결될 수 있어서, 점점 심해지면 초기에 확인하는 편이 좋습니다.',
+    external: {
+      pubmed_query: 'gingival hyperplasia drug induced K06.1',
+      youtube_query: '치은비대 잇몸 비대',
+      references: [
+        {
+          title: 'Gingival Hyperplasia: Symptoms, Causes & Treatment | Cleveland Clinic',
+          url: 'https://my.clevelandclinic.org/health/diseases/gingival-hyperplasia',
+          type: 'official',
+          year: 2025,
+        },
+      ],
+    },
+    provenance: {
+      status: 'pending',
+      updated_at: '2026-03-21',
+      sources: [
+        {
+          title: 'Gingival Hyperplasia: Symptoms, Causes & Treatment | Cleveland Clinic',
+          url: 'https://my.clevelandclinic.org/health/diseases/gingival-hyperplasia',
+          year: 2025,
+          note: '약물·염증·유전 관련 치은 과증식과 보존 치료/치은절제 가능성을 반영했습니다.',
+        },
+      ],
+    },
+  },
+  'K07.6': {
+    code: 'K07.6',
+    name_en: 'Temporomandibular disorders',
+    synonyms_ko: ['턱관절장애', 'TMJ 장애'],
+    definition:
+      '턱관절장애는 턱관절과 저작근에 생기는 통증·기능 이상을 묶는 범주입니다. 턱 통증, 뻣뻣함, 입 벌리기 어려움, 저작 불편이 대표적입니다.',
+    pathophysiology:
+      '증상은 턱관절 자체, 저작근, 주변 인대와 통증 조절 기전이 함께 관여할 수 있습니다. 많은 경우 정확한 단일 원인은 알기 어렵습니다.',
+    risk_factors: ['턱 외상', '통증에 대한 민감성', '스트레스와 이악물기', '중년 여성에서 더 흔함'],
+    anatomy_involved: ['턱관절(TMJ)', '저작근', '하악과 두개골 연결 구조'],
+    symptoms: [
+      {
+        name: '턱 통증, 턱 뻣뻣함, 씹기 불편이 생길 수 있습니다.',
+        severity: 'moderate',
+        is_pathognomonic: false,
+      },
+      {
+        name: '입이 잘 안 벌어지거나 잠기는 느낌, 통증 있는 딱딱 소리, 얼굴·목으로 퍼지는 통증이 동반될 수 있습니다.',
+        severity: 'moderate',
+        is_pathognomonic: false,
+      },
+    ],
+    diagnostic_criteria: [
+      '증상 위치, 유발 요인, 지속 기간을 자세히 묻습니다.',
+      '턱관절과 저작근의 압통, 클릭음, 개구 범위를 진찰합니다.',
+      '필요하면 X-ray, CT, MRI 같은 영상검사를 고려합니다.',
+    ],
+    treatment: [
+      {
+        approach: '자가관리와 보존적 치료',
+        description:
+          '부드러운 음식, 온찜질 또는 냉찜질, 턱 스트레칭, NSAIDs 같은 보존 치료가 우선입니다.',
+        evidence_level: 'Expert',
+        is_insured: null,
+      },
+      {
+        approach: '물리치료·행동치료·보조장치',
+        description:
+          '증상이 오래가면 물리치료, 스트레스 관리, 스플린트 같은 보조장치를 고려할 수 있지만, 영구적으로 bite를 바꾸는 장치는 신중해야 합니다.',
+        evidence_level: 'Expert',
+        is_insured: null,
+      },
+    ],
+    complications: ['만성 통증', '두통', '저작 기능 제한', '수면과 삶의 질 저하'],
+    prognosis:
+      '많은 턱관절장애는 일시적이거나 보존 치료로 호전되지만, 일부는 만성화될 수 있어 무리한 자가교정보다 정확한 평가가 중요합니다.',
+    prevention: [
+      '턱을 과하게 악무는 습관과 껌 씹기를 줄입니다.',
+      '턱 통증이 심할 때는 딱딱한 음식과 과도한 하품을 피합니다.',
+      '오래가는 통증은 참고 버티기보다 보존 치료 중심으로 평가받습니다.',
+    ],
+    patient_friendly_summary:
+      '턱관절장애는 턱관절 자체와 씹는 근육에서 생기는 통증 문제입니다. 턱이 딱딱거린다고 모두 병은 아니지만, 통증이나 입 벌림 제한이 있으면 조기에 진료를 받는 편이 좋습니다.',
+    external: {
+      pubmed_query: 'temporomandibular disorders K07.6',
+      youtube_query: '턱관절장애 TMD TMJ',
+      references: [
+        {
+          title: 'TMD | NIDCR',
+          url: 'https://www.nidcr.nih.gov/health-info/tmd',
+          type: 'official',
+          year: 2025,
+        },
+        {
+          title: 'Temporomandibular Disorders | MedlinePlus',
+          url: 'https://medlineplus.gov/temporomandibulardisorders.html',
+          type: 'official',
+          year: 2024,
+        },
+        {
+          title: 'TMJ disorders | MedlinePlus Medical Encyclopedia',
+          url: 'https://medlineplus.gov/ency/article/001227.htm',
+          type: 'official',
+          year: 2024,
+        },
+      ],
+    },
+    provenance: {
+      status: 'pending',
+      updated_at: '2026-03-21',
+      sources: [
+        {
+          title: 'TMD | NIDCR',
+          url: 'https://www.nidcr.nih.gov/health-info/tmd',
+          year: 2025,
+          note: '보존 치료 우선 원칙과 비가역적 교합 변경 치료에 대한 신중한 접근을 반영했습니다.',
+        },
+        {
+          title: 'Temporomandibular Disorders | MedlinePlus',
+          url: 'https://medlineplus.gov/temporomandibulardisorders.html',
+          year: 2024,
+          note: '증상, 위험군, 검사와 치료의 patient-facing 구조를 반영했습니다.',
+        },
+        {
+          title: 'TMJ disorders | MedlinePlus Medical Encyclopedia',
+          url: 'https://medlineplus.gov/ency/article/001227.htm',
+          year: 2024,
+          note: '턱관절과 저작근 구조, 통증, 개구 제한 설명을 보강했습니다.',
+        },
+      ],
+    },
+  },
+  'K09.0': {
+    code: 'K09.0',
+    name_en: 'Developmental odontogenic cysts',
+    synonyms_ko: ['발육성 치성낭', '대표 예: 함치성낭'],
+    definition:
+      '발육성 치성낭은 치아 형성과 관련된 조직에서 생기는 낭성 병변을 묶는 범주입니다. 환자에게 가장 익숙한 대표 예는 매복치 주위에 생기는 함치성낭입니다.',
+    pathophysiology:
+      '치아가 맹출하지 못하고 남아 있을 때 치관 주변에 액체가 모이면서 낭이 형성될 수 있습니다. 시간이 지나면 턱뼈를 팽창시키거나 주변 치아를 밀 수 있습니다.',
+    anatomy_involved: ['매복치 주변 낭강', '치관 주위 조직', '턱뼈'],
+    symptoms: [
+      {
+        name: '작은 낭은 증상 없이 X-ray에서 우연히 발견될 수 있습니다.',
+        severity: 'mild',
+        is_pathognomonic: false,
+      },
+      {
+        name: '커지면 턱 부종, 치아 이동, 맹출 지연, 드물게 통증이나 감염이 생길 수 있습니다.',
+        severity: 'moderate',
+        is_pathognomonic: false,
+      },
+    ],
+    diagnostic_criteria: [
+      '파노라마 X-ray나 CBCT에서 매복치 치관 주위의 낭성 음영을 확인합니다.',
+      '정확한 subtype은 수술 후 병리 확인이 필요할 수 있습니다.',
+      '매복치 주변 병변이면 구강악안면외과 평가를 고려합니다.',
+    ],
+    treatment: [
+      {
+        approach: '구강악안면외과 평가',
+        description:
+          '크기와 위치, 인접 치아 관계를 보고 관찰, 감압술, 적출술 중 적절한 계획을 세웁니다.',
+        evidence_level: 'Expert',
+        is_insured: null,
+      },
+      {
+        approach: '낭 적출과 치아 관리',
+        description:
+          '대표 예인 함치성낭은 낭 제거와 함께 매복치 관리가 같이 논의되는 경우가 많습니다.',
+        evidence_level: 'Expert',
+        is_insured: null,
+      },
+    ],
+    prognosis:
+      '대부분 양성이지만 크기와 위치에 따라 수술 범위가 달라지고, 추적 촬영이 필요할 수 있습니다.',
+    patient_friendly_summary:
+      'K09.0은 치아를 만드는 조직에서 생기는 낭을 묶는 범주입니다. 특히 매복치 주변에서 우연히 발견되는 경우가 많아서, 통증이 없더라도 영상에서 보이면 정확한 평가가 중요합니다.',
+    external: {
+      pubmed_query: 'developmental odontogenic cyst dentigerous cyst K09.0',
+      youtube_query: '함치성낭 치성낭',
+      references: [
+        {
+          title: 'Dentigerous Cyst | Cleveland Clinic',
+          url: 'https://my.clevelandclinic.org/health/diseases/dentigerous-cyst',
+          type: 'official',
+          year: 2024,
+        },
+        {
+          title: 'Jaw Cysts and Tumors | Cleveland Clinic',
+          url: 'https://my.clevelandclinic.org/health/diseases/jaw-cysts-tumors',
+          type: 'official',
+          year: 2024,
+        },
+      ],
+    },
+    provenance: {
+      status: 'pending',
+      updated_at: '2026-03-21',
+      sources: [
+        {
+          title: 'Dentigerous Cyst | Cleveland Clinic',
+          url: 'https://my.clevelandclinic.org/health/diseases/dentigerous-cyst',
+          year: 2024,
+          note: 'K09.0의 대표 patient-facing example로 함치성낭 설명을 반영했습니다.',
+        },
+        {
+          title: 'Jaw Cysts and Tumors | Cleveland Clinic',
+          url: 'https://my.clevelandclinic.org/health/diseases/jaw-cysts-tumors',
+          year: 2024,
+          note: '턱 낭의 영상 발견과 수술 평가 필요성을 보강했습니다.',
+        },
+      ],
+    },
+  },
+  'K09.1': {
+    code: 'K09.1',
+    name_en: 'Developmental cysts of oral region, non-odontogenic',
+    synonyms_ko: ['비치원성 발육성 낭', '대표 예: 비구개관낭'],
+    definition:
+      'K09.1은 치아를 만드는 조직이 아닌 구강영역 발달 구조에서 생기는 낭을 묶는 범주입니다. 환자에게 가장 설명하기 쉬운 대표 예는 앞쪽 구개부의 비구개관낭입니다.',
+    pathophysiology:
+      '배아 발달 과정의 잔존 구조에서 낭이 자라며, 전치부 구개 쪽에 천천히 커질 수 있습니다. 작을 때는 무증상인 경우도 흔합니다.',
+    anatomy_involved: ['앞쪽 구개부', '비구개관 부위', '상악 전치부 주변'],
+    symptoms: [
+      {
+        name: '증상 없이 우연히 발견될 수 있습니다.',
+        severity: 'mild',
+        is_pathognomonic: false,
+      },
+      {
+        name: '앞니 뒤쪽 입천장 부위의 부종, 압박감, 배농, 통증이 생길 수 있습니다.',
+        severity: 'moderate',
+        is_pathognomonic: false,
+      },
+    ],
+    diagnostic_criteria: [
+      '전치부 구개 쪽 부종이나 X-ray 음영을 확인합니다.',
+      '치근단 병변과 감별하기 위해 치아 생활력과 영상 소견을 함께 봅니다.',
+      '정확한 진단은 병리 결과가 필요할 수 있습니다.',
+    ],
+    treatment: [
+      {
+        approach: '영상 평가와 수술 상담',
+        description:
+          '크기와 증상에 따라 구강악안면외과에서 적출술 여부를 평가합니다.',
+        evidence_level: 'Expert',
+        is_insured: null,
+      },
+    ],
+    prognosis:
+      '대체로 양성이며 치료 후 경과가 좋은 편이지만, 정확한 감별과 추적이 필요합니다.',
+    patient_friendly_summary:
+      'K09.1은 치아와 직접 관련되지 않은 발육성 낭을 묶는 범주입니다. 특히 앞니 뒤쪽 입천장에 반복되는 부종이나 X-ray 이상이 보이면 치근단 염증으로만 넘기지 말고 확인하는 것이 좋습니다.',
+    external: {
+      pubmed_query: 'nasopalatine duct cyst K09.1',
+      youtube_query: '비구개관낭 구개낭종',
+      references: [
+        {
+          title: 'Nasopalatine Duct Cyst | Cleveland Clinic',
+          url: 'https://my.clevelandclinic.org/health/diseases/nasopalatine-duct-cyst',
+          type: 'official',
+          year: 2025,
+        },
+        {
+          title: 'Jaw Cysts and Tumors | Cleveland Clinic',
+          url: 'https://my.clevelandclinic.org/health/diseases/jaw-cysts-tumors',
+          type: 'official',
+          year: 2024,
+        },
+      ],
+    },
+    provenance: {
+      status: 'pending',
+      updated_at: '2026-03-21',
+      sources: [
+        {
+          title: 'Nasopalatine Duct Cyst | Cleveland Clinic',
+          url: 'https://my.clevelandclinic.org/health/diseases/nasopalatine-duct-cyst',
+          year: 2025,
+          note: 'K09.1의 대표 example로 앞쪽 구개부 비치원성 낭 설명을 반영했습니다.',
+        },
+        {
+          title: 'Jaw Cysts and Tumors | Cleveland Clinic',
+          url: 'https://my.clevelandclinic.org/health/diseases/jaw-cysts-tumors',
+          year: 2024,
+          note: '영상평가와 수술적 평가 필요성을 보강했습니다.',
+        },
+      ],
+    },
+  },
+  'K10.3': {
+    code: 'K10.3',
+    name_en: 'Alveolitis of jaws (alveolar osteitis, dry socket)',
+    synonyms_ko: ['턱의치조염', '건성와', '발치와 염증'],
+    definition:
+      '건성와(alveolar osteitis)는 발치 후 혈병이 제대로 유지되지 않아 발치와의 뼈와 신경이 노출되면서 심한 통증이 생기는 상태입니다. 흔히 발치 후 치조염으로 설명됩니다.',
+    pathophysiology:
+      '정상적으로는 발치 부위에 혈병이 생겨 치유를 돕지만, 혈병이 너무 일찍 떨어지거나 분해되면 뼈가 노출되어 극심한 통증이 생길 수 있습니다.',
+    risk_factors: ['흡연', '빨대 사용', '강한 가글', '발치 후 구강위생 불량', '여성호르몬 제제 복용', '사랑니 발치'],
+    anatomy_involved: ['발치와', '노출된 치조골', '주변 연조직'],
+    symptoms: [
+      {
+        name: '발치 후 1~3일 사이 통증이 심해지고, 통증이 턱·귀·머리 쪽으로 퍼질 수 있습니다.',
+        severity: 'severe',
+        is_pathognomonic: false,
+      },
+      {
+        name: '입 냄새, 불쾌한 맛, 텅 빈 발치 구멍처럼 보이는 소견이 동반될 수 있습니다.',
+        severity: 'moderate',
+        is_pathognomonic: false,
+      },
+    ],
+    diagnostic_criteria: [
+      '최근 발치 병력과 시기, 통증 양상을 확인합니다.',
+      '발치와에 혈병이 없거나 노출골처럼 보이는지 진찰합니다.',
+      '필요하면 남아 있는 치근 조각이나 다른 합병증을 X-ray로 확인합니다.',
+    ],
+    treatment: [
+      {
+        approach: '세척과 통증 조절',
+        description:
+          '치과에서 발치와를 세척하고 진통 관리, 진정용 드레싱을 사용할 수 있습니다.',
+        evidence_level: 'Expert',
+        is_insured: null,
+      },
+      {
+        approach: '사후 관리 재교육',
+        description:
+          '흡연, 빨대, 과격한 가글 같은 혈병 방해 행동을 피하고 연한 음식 위주로 관리합니다.',
+        evidence_level: 'Expert',
+        is_insured: null,
+      },
+    ],
+    prognosis:
+      '통증은 심하지만 적절히 관리하면 대개 1주 안팎으로 호전됩니다. 통증이 밤에 잠을 깨울 정도로 심하면 재평가가 필요합니다.',
+    prevention: [
+      '발치 후 흡연과 빨대를 피합니다.',
+      '너무 세게 가글하지 않고 안내받은 사후 관리 지침을 따릅니다.',
+      '증상이 심하거나 진통제로도 조절이 안 되면 발치한 치과에 바로 연락합니다.',
+    ],
+    patient_friendly_summary:
+      '건성와는 발치 후 생길 수 있는 대표적인 통증 합병증입니다. 시간이 지나면 나아질 수 있어도 통증이 너무 심해서 잠을 못 잘 정도라면 참지 말고 세척과 통증 조절 치료를 받는 편이 훨씬 낫습니다.',
+    external: {
+      pubmed_query: 'dry socket alveolar osteitis K10.3',
+      youtube_query: '건성와 dry socket',
+      references: [
+        {
+          title: 'Dry Socket: Symptoms, Causes & Treatment | Cleveland Clinic',
+          url: 'https://my.clevelandclinic.org/health/diseases/17731-dry-socket',
+          type: 'official',
+          year: 2025,
+        },
+      ],
+    },
+    provenance: {
+      status: 'pending',
+      updated_at: '2026-03-21',
+      sources: [
+        {
+          title: 'Dry Socket: Symptoms, Causes & Treatment | Cleveland Clinic',
+          url: 'https://my.clevelandclinic.org/health/diseases/17731-dry-socket',
+          year: 2025,
+          note: '발치 후 혈병 소실, 통증 양상, 위험 인자, 세척·드레싱 중심 치료를 K10.3 설명에 반영했습니다.',
+        },
+      ],
+    },
+  },
 }
