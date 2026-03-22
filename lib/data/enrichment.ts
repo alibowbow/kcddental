@@ -1,8 +1,10 @@
 import type { EnrichedDiseaseEntry } from '../types'
 import { k00SubcodeEntries } from './k00-subcodes'
+import { k07SubcodeEntries } from './k07-subcodes'
 
 export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
   ...k00SubcodeEntries,
+  ...k07SubcodeEntries,
   K02: {
     code: 'K02',
     name_en: 'Dental caries',
