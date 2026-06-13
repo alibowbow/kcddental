@@ -4,6 +4,7 @@ import { enrichmentData } from '../lib/data/enrichment'
 import { flowchartData } from '../lib/data/flowcharts'
 import { kcdChangelogData } from '../lib/data/kcd-changelog'
 import { officialKcdData } from '../lib/data/official-kcd'
+import { searchAliases } from '../lib/data/search-aliases'
 
 type EnrichmentEntry = (typeof enrichmentData)[string]
 
@@ -68,6 +69,7 @@ console.log(`- claim rule groups: ${claimGroupCount}`)
 console.log(`- claim rule entries: ${claimEntryCount}`)
 console.log(`- flowchart definitions: ${Object.keys(flowchartData).length}`)
 console.log(`- flowchart shells: ${flowchartShells.length}`)
+console.log(`- search aliases: ${searchAliases.length}`)
 console.log(`- drug interaction groups: ${drugGroupCount}`)
 console.log(`- drug interaction entries: ${drugEntryCount}`)
 console.log(`- changelog entries: ${kcdChangelogData.length}`)

@@ -93,7 +93,7 @@ export function CompareClient() {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-3xl border border-slate-200/70 bg-white/85 p-6 shadow-panel dark:border-slate-800 dark:bg-slate-950/70">
+      <section className="panel p-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <h1 className="text-3xl font-bold text-slate-950 dark:text-slate-50">코드 비교</h1>
@@ -126,7 +126,7 @@ export function CompareClient() {
         {[left, right].map((item, index) => (
           <section
             key={index}
-            className="rounded-3xl border border-slate-200/70 bg-white/85 p-6 shadow-panel dark:border-slate-800 dark:bg-slate-950/70"
+            className="panel p-6"
           >
             {item ? (
               <>
@@ -147,7 +147,7 @@ export function CompareClient() {
           </section>
         ))}
       </div>
-      <section className="rounded-3xl border border-slate-200/70 bg-white/85 p-6 shadow-panel dark:border-slate-800 dark:bg-slate-950/70">
+      <section className="panel p-6">
         <div className="grid gap-3">
           {rows.map((row) => {
             const changed = row.left !== row.right

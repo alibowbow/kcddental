@@ -1,6 +1,69 @@
-import type { FlowchartDefinition } from '../types'
+import type { FlowchartDefinition, FlowchartNode } from '../types'
+
+const TAXONOMY_NOTE =
+  '공식 KCD 분류 구조에서 그대로 파생한 교육용 분류 지도입니다. 진단이나 처치 결정을 대신하는 임상 알고리즘이 아니라, 어떤 하위 코드로 갈라지는지 빠르게 훑어보기 위한 참고용 구조입니다.'
+
+interface TaxonomySpec {
+  code: string
+  title: string
+  rootLabel: string
+  children: Array<{ code: string; label: string }>
+  note?: string
+}
+
+function buildTaxonomyFlowchart(spec: TaxonomySpec): FlowchartDefinition {
+  const rootId = `${spec.code.toLowerCase()}-root`
+  const nodes: FlowchartNode[] = [
+    { id: rootId, label: spec.rootLabel, targetCode: spec.code },
+    ...spec.children.map((child) => ({
+      id: child.code.toLowerCase().replace(/\./g, '-'),
+      label: `${child.code} ${child.label}`,
+      targetCode: child.code,
+    })),
+  ]
+
+  const edges = spec.children.map((child) => ({
+    from: rootId,
+    to: child.code.toLowerCase().replace(/\./g, '-'),
+  }))
+
+  return {
+    code: spec.code,
+    title: spec.title,
+    status: 'verified',
+    note: spec.note ?? TAXONOMY_NOTE,
+    nodes,
+    edges,
+  }
+}
 
 export const flowchartData: Record<string, FlowchartDefinition> = {
+  K00: buildTaxonomyFlowchart({
+    code: 'K00',
+    title: '치아 발육·맹출장애 분류 흐름',
+    rootLabel: 'K00 치아의 발육 및 맹출장애',
+    children: [
+      { code: 'K00.0', label: '무치증' },
+      { code: 'K00.1', label: '과잉치' },
+      { code: 'K00.2', label: '치아의 크기와 형태의 이상' },
+      { code: 'K00.3', label: '반상치' },
+      { code: 'K00.4', label: '치아형성의 장애' },
+      { code: 'K00.5', label: '유전성 치아구조 장애' },
+      { code: 'K00.6', label: '치아맹출의 장애' },
+      { code: 'K00.7', label: '생치증후군' },
+      { code: 'K00.8', label: '기타 치아발육의 장애' },
+      { code: 'K00.9', label: '상세불명의 치아발육의 장애' },
+    ],
+  }),
+  K01: buildTaxonomyFlowchart({
+    code: 'K01',
+    title: '매몰치·매복치 분류 흐름',
+    rootLabel: 'K01 매몰치 및 매복치',
+    children: [
+      { code: 'K01.0', label: '매몰치' },
+      { code: 'K01.1', label: '매복치' },
+    ],
+  }),
   K02: {
     code: 'K02',
     title: '치아우식 분류 흐름',
@@ -27,6 +90,23 @@ export const flowchartData: Record<string, FlowchartDefinition> = {
       { from: 'k02-dentin', to: 'k04-link' },
     ],
   },
+  K03: buildTaxonomyFlowchart({
+    code: 'K03',
+    title: '치아경조직 기타질환 분류 흐름',
+    rootLabel: 'K03 치아경조직의 기타질환',
+    children: [
+      { code: 'K03.0', label: '치아의 과다교모' },
+      { code: 'K03.1', label: '치아의 마모' },
+      { code: 'K03.2', label: '치아의 침식' },
+      { code: 'K03.3', label: '치아의 병적 흡수' },
+      { code: 'K03.4', label: '과시멘트질증' },
+      { code: 'K03.5', label: '치아의 유착증' },
+      { code: 'K03.6', label: '치아의 침착물' },
+      { code: 'K03.7', label: '맹출후 색조변화' },
+      { code: 'K03.8', label: '기타 명시된 치아경조직의 질환' },
+      { code: 'K03.9', label: '상세불명의 치아경조직의 질환' },
+    ],
+  }),
   K04: {
     code: 'K04',
     title: '치수·치근단 질환 교육 흐름',
@@ -81,4 +161,129 @@ export const flowchartData: Record<string, FlowchartDefinition> = {
       { from: 'k05-root', to: 'k05-unspecified' },
     ],
   },
+  K06: buildTaxonomyFlowchart({
+    code: 'K06',
+    title: '잇몸·치조융기 기타장애 분류 흐름',
+    rootLabel: 'K06 잇몸 및 무치성 치조융기의 기타 장애',
+    children: [
+      { code: 'K06.0', label: '치은퇴축' },
+      { code: 'K06.1', label: '치은비대' },
+      { code: 'K06.2', label: '외상 연관 병변' },
+      { code: 'K06.8', label: '기타 명시된 장애' },
+      { code: 'K06.9', label: '상세불명의 장애' },
+    ],
+  }),
+  K07: buildTaxonomyFlowchart({
+    code: 'K07',
+    title: '치아얼굴이상·부정교합 분류 흐름',
+    rootLabel: 'K07 치아얼굴이상[부정교합포함]',
+    children: [
+      { code: 'K07.0', label: '턱크기의 주요 이상' },
+      { code: 'K07.1', label: '턱-두개골저 관계이상' },
+      { code: 'K07.2', label: '치열궁 관계의 이상' },
+      { code: 'K07.3', label: '치아위치의 이상' },
+      { code: 'K07.4', label: '상세불명의 부정교합' },
+      { code: 'K07.5', label: '치아얼굴의 기능이상' },
+      { code: 'K07.6', label: '턱관절장애' },
+      { code: 'K07.8', label: '기타 치아얼굴이상' },
+      { code: 'K07.9', label: '상세불명의 치아얼굴이상' },
+    ],
+  }),
+  K08: buildTaxonomyFlowchart({
+    code: 'K08',
+    title: '치아·지지구조 기타장애 분류 흐름',
+    rootLabel: 'K08 치아 및 지지구조의 기타장애',
+    children: [
+      { code: 'K08.0', label: '전신적 원인에 의한 치아탈락' },
+      { code: 'K08.1', label: '사고·발치·치주병에 의한 치아상실' },
+      { code: 'K08.2', label: '무치성 치조융기의 위축' },
+      { code: 'K08.3', label: '잔존치근' },
+      { code: 'K08.8', label: '기타 명시된 장애' },
+      { code: 'K08.9', label: '상세불명의 장애' },
+    ],
+  }),
+  K09: buildTaxonomyFlowchart({
+    code: 'K09',
+    title: '구강영역 낭 분류 흐름',
+    rootLabel: 'K09 달리 분류되지 않은 구강영역의 낭',
+    children: [
+      { code: 'K09.0', label: '발육성 치성낭' },
+      { code: 'K09.1', label: '발육성(비치원성)낭' },
+      { code: 'K09.2', label: '턱의 기타 낭' },
+      { code: 'K09.8', label: '기타 구강영역의 낭' },
+      { code: 'K09.9', label: '상세불명의 구강영역의 낭' },
+    ],
+  }),
+  K10: buildTaxonomyFlowchart({
+    code: 'K10',
+    title: '턱의 기타 질환 분류 흐름',
+    rootLabel: 'K10 턱의 기타 질환',
+    children: [
+      { code: 'K10.0', label: '턱의 발육장애' },
+      { code: 'K10.1', label: '중심성 거대세포육아종' },
+      { code: 'K10.2', label: '턱의 염증성 병태' },
+      { code: 'K10.3', label: '턱의 치조염' },
+      { code: 'K10.8', label: '기타 명시된 턱의 질환' },
+      { code: 'K10.9', label: '상세불명의 턱의 질환' },
+    ],
+  }),
+  K11: buildTaxonomyFlowchart({
+    code: 'K11',
+    title: '침샘의 질환 분류 흐름',
+    rootLabel: 'K11 침샘의 질환',
+    children: [
+      { code: 'K11.0', label: '침샘의 위축' },
+      { code: 'K11.1', label: '침샘의 비대' },
+      { code: 'K11.2', label: '타액선염' },
+      { code: 'K11.3', label: '침샘의 농양' },
+      { code: 'K11.4', label: '침샘의 누공' },
+      { code: 'K11.5', label: '타석증' },
+      { code: 'K11.6', label: '침샘의 점액류' },
+      { code: 'K11.7', label: '침분비의 장애' },
+      { code: 'K11.8', label: '기타 침샘의 질환' },
+      { code: 'K11.9', label: '상세불명의 침샘 질환' },
+    ],
+  }),
+  K12: buildTaxonomyFlowchart({
+    code: 'K12',
+    title: '구내염·관련 병변 분류 흐름',
+    rootLabel: 'K12 구내염 및 관련 병변',
+    children: [
+      { code: 'K12.0', label: '재발성 구강 아프타' },
+      { code: 'K12.1', label: '구내염의 기타 형태' },
+      { code: 'K12.2', label: '입의 연조직염 및 농양' },
+      { code: 'K12.3', label: '입점막염' },
+    ],
+  }),
+  K13: buildTaxonomyFlowchart({
+    code: 'K13',
+    title: '입술·구강점막 기타질환 분류 흐름',
+    rootLabel: 'K13 입술 및 구강점막의 기타 질환',
+    children: [
+      { code: 'K13.0', label: '입술의 질환' },
+      { code: 'K13.1', label: '볼 및 입술물림' },
+      { code: 'K13.2', label: '백반 및 기타 상피장애' },
+      { code: 'K13.3', label: '모발성 백반' },
+      { code: 'K13.4', label: '육아종 및 유사병변' },
+      { code: 'K13.5', label: '구강점막하 섬유증' },
+      { code: 'K13.6', label: '자극성 증식증' },
+      { code: 'K13.7', label: '기타·상세불명의 병변' },
+    ],
+  }),
+  K14: buildTaxonomyFlowchart({
+    code: 'K14',
+    title: '혀의 질환 분류 흐름',
+    rootLabel: 'K14 혀의 질환',
+    children: [
+      { code: 'K14.0', label: '설염' },
+      { code: 'K14.1', label: '지도모양 혀' },
+      { code: 'K14.2', label: '정중능형 설염' },
+      { code: 'K14.3', label: '혀유두의 비대' },
+      { code: 'K14.4', label: '혀유두의 위축' },
+      { code: 'K14.5', label: '주름잡힌 혀' },
+      { code: 'K14.6', label: '설통' },
+      { code: 'K14.8', label: '혀의 기타 질환' },
+      { code: 'K14.9', label: '상세불명의 혀의 질환' },
+    ],
+  }),
 }

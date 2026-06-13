@@ -39,7 +39,7 @@ export default async function ClaimDetailPage({ params }: { params: Promise<{ co
 
   return (
     <div className="space-y-6">
-      <section className="rounded-3xl border border-slate-200/70 bg-white/85 p-6 shadow-panel dark:border-slate-800 dark:bg-slate-950/70">
+      <section className="panel p-6">
         <div className="flex flex-wrap items-center gap-2">
           <StatusBadge tone={claims.length ? 'green' : 'amber'}>{claims.length ? '검증완료' : '준비중'}</StatusBadge>
           <StatusBadge tone="slate">출처 필요</StatusBadge>
@@ -125,7 +125,7 @@ export default async function ClaimDetailPage({ params }: { params: Promise<{ co
         />
       )}
 
-      <section className="rounded-3xl border border-slate-200/70 bg-white/85 p-6 shadow-panel dark:border-slate-800 dark:bg-slate-950/70">
+      <section className="panel p-6">
         <h2 className="text-xl font-bold text-slate-950 dark:text-slate-50">공식 코드 정보 fallback</h2>
         <pre className="prose-reference mt-4 overflow-x-auto whitespace-pre-wrap rounded-2xl bg-slate-950 p-4 text-slate-100">
           {viewModel.official.raw_block.join('\n')}

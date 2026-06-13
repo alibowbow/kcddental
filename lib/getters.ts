@@ -86,3 +86,23 @@ export function getChangeEntries() {
 export function getCodeRelations(code: string) {
   return getRelationBundle(code)
 }
+
+export function getContentCoverage() {
+  const enrichmentEntries = Object.values(enrichmentData)
+  const verifiedEnrichment = enrichmentEntries.filter((entry) => entry.provenance.status === 'verified').length
+  const claimGroups = Object.keys(claimRulesData).length
+  const flowcharts = Object.keys(flowchartData).length
+  const primaryCategories = primaryCategoryMeta.length
+  const supplementalCodes = officialKcdData.filter((entry) => entry.scope === 'supplemental-dental-related').length
+
+  return {
+    officialCodes: officialKcdData.length,
+    primaryCategories,
+    supplementalCodes,
+    enrichmentEntries: enrichmentEntries.length,
+    verifiedEnrichment,
+    claimGroups,
+    flowcharts,
+    changelog: kcdChangelogData.length,
+  }
+}

@@ -116,7 +116,7 @@ export default async function DiseaseDetailPage({ params }: { params: Promise<{ 
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <div className="grid gap-6 xl:grid-cols-[240px_minmax(0,1fr)_240px]">
-        <aside className="print-hidden hidden rounded-3xl border border-slate-200/70 bg-white/85 p-5 shadow-panel dark:border-slate-800 dark:bg-slate-950/70 xl:block">
+        <aside className="print-hidden hidden panel p-5 xl:block">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Tree</p>
           <div className="mt-4 max-h-[75vh] overflow-auto pr-2">
             <HierarchyTree roots={sidebarRoots.length ? sidebarRoots : getPrimaryCategories()} activeCode={code} />
@@ -124,7 +124,7 @@ export default async function DiseaseDetailPage({ params }: { params: Promise<{ 
         </aside>
 
         <main className="space-y-6">
-          <section className="rounded-3xl border border-slate-200/70 bg-white/85 p-6 shadow-panel dark:border-slate-800 dark:bg-slate-950/70">
+          <section className="panel p-6">
             <div className="flex flex-wrap items-center gap-2">
               <StatusBadge tone={viewModel.official.scope === 'primary-k00-k14' ? 'blue' : 'slate'}>
                 {scopeLabel(viewModel.official.scope)}
@@ -158,6 +158,14 @@ export default async function DiseaseDetailPage({ params }: { params: Promise<{ 
                 >
                   비교
                 </Link>
+                {flowchart ? (
+                  <Link
+                    href={flowchartRoute(code)}
+                    className="rounded-full border border-slate-300 px-3 py-1.5 text-xs font-semibold dark:border-slate-700"
+                  >
+                    흐름도
+                  </Link>
+                ) : null}
                 <DetailActions code={code} title={viewModel.official.name_ko_official} />
               </div>
             </div>
@@ -227,6 +235,7 @@ export default async function DiseaseDetailPage({ params }: { params: Promise<{ 
               </div>
             ) : (
               <EmptyState
+                compact
                 title="임상 개요 준비중"
                 description="정의, 병태생리, 원인, 위험요인은 검증된 공공/공식 출처가 확인된 항목만 노출합니다."
               />
@@ -276,6 +285,7 @@ export default async function DiseaseDetailPage({ params }: { params: Promise<{ 
               </div>
             ) : (
               <EmptyState
+                compact
                 title="증상·진단 데이터 없음"
                 description="증상, 진단기준, 감별진단은 검증된 자료가 확보된 항목만 표시합니다."
               >
@@ -320,6 +330,7 @@ export default async function DiseaseDetailPage({ params }: { params: Promise<{ 
               </div>
             ) : (
               <EmptyState
+                compact
                 title="치료·예방 데이터 없음"
                 description="치료, 예방, 예후는 검증된 출처가 확보된 항목만 표시합니다."
               />
@@ -389,6 +400,7 @@ export default async function DiseaseDetailPage({ params }: { params: Promise<{ 
                   </Link>
                 </div>
                 <EmptyState
+                  compact
                   title="증례·시나리오 준비중"
                   description="케이스 시나리오와 임상 의사결정 콘텐츠는 검증된 학습 노트가 추가될 때만 공개합니다."
                 />
@@ -406,6 +418,7 @@ export default async function DiseaseDetailPage({ params }: { params: Promise<{ 
               </div>
             ) : (
               <EmptyState
+                compact
                 title="역학 데이터 없음"
                 description="국내외 유병률과 추세 차트는 검증된 통계 원문이 준비된 뒤에만 노출합니다."
               />
@@ -414,7 +427,7 @@ export default async function DiseaseDetailPage({ params }: { params: Promise<{ 
         </main>
 
         <aside className="space-y-4">
-          <section className="rounded-3xl border border-slate-200/70 bg-white/85 p-5 shadow-panel dark:border-slate-800 dark:bg-slate-950/70">
+          <section className="panel p-5">
             <h2 className="text-lg font-bold text-slate-950 dark:text-slate-50">관련 코드</h2>
             <div className="mt-4 space-y-4">
               {relations?.parent ? <RelationGroup title="상위 코드" items={[relations.parent]} /> : null}
@@ -438,7 +451,7 @@ export default async function DiseaseDetailPage({ params }: { params: Promise<{ 
             </div>
           </section>
 
-          <section className="rounded-3xl border border-slate-200/70 bg-white/85 p-5 shadow-panel dark:border-slate-800 dark:bg-slate-950/70">
+          <section className="panel p-5">
             <h2 className="text-lg font-bold text-slate-950 dark:text-slate-50">출처 상태</h2>
             <div className="mt-4 flex flex-wrap gap-2">
               <StatusBadge tone="blue">공식원문</StatusBadge>
@@ -468,7 +481,7 @@ export default async function DiseaseDetailPage({ params }: { params: Promise<{ 
           </section>
 
           {drugs.length ? (
-            <section className="rounded-3xl border border-slate-200/70 bg-white/85 p-5 shadow-panel dark:border-slate-800 dark:bg-slate-950/70">
+            <section className="panel p-5">
               <h2 className="text-lg font-bold text-slate-950 dark:text-slate-50">관련 약물</h2>
               <div className="mt-4 space-y-3 text-sm leading-6 text-slate-700 dark:text-slate-200">
                 {drugs.map((drug) => (
@@ -522,7 +535,7 @@ function SectionCard({
   return (
     <section
       id={id}
-      className="scroll-mt-28 rounded-3xl border border-slate-200/70 bg-white/85 p-6 shadow-panel dark:border-slate-800 dark:bg-slate-950/70"
+      className="scroll-mt-28 panel p-6"
     >
       <div className="flex items-center justify-between gap-3">
         <h2 className="text-2xl font-bold text-slate-950 dark:text-slate-50">{title}</h2>

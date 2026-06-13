@@ -52,7 +52,7 @@ export function SearchPageClient() {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-3xl border border-slate-200/70 bg-white/85 p-6 shadow-panel dark:border-slate-800 dark:bg-slate-950/70">
+      <section className="panel p-6">
         <h1 className="text-3xl font-bold text-slate-950 dark:text-slate-50">검색</h1>
         <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
           정적 데이터에서 코드, 공식명, 포함/제외/주석, 검증된 동의어를 클라이언트 측 검색으로 조회합니다.

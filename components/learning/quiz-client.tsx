@@ -118,7 +118,7 @@ export function QuizClient() {
 
   if (completed) {
     return (
-      <section className="rounded-3xl border border-slate-200/70 bg-white/85 p-6 shadow-panel dark:border-slate-800 dark:bg-slate-950/70">
+      <section className="panel p-6">
         <h2 className="text-2xl font-bold text-slate-950 dark:text-slate-50">퀴즈 결과</h2>
         <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">
           정확도 {Math.round((score / total) * 100)}% · {score}/{total}
@@ -163,7 +163,7 @@ export function QuizClient() {
   }
 
   return (
-    <section className="rounded-3xl border border-slate-200/70 bg-white/85 p-6 shadow-panel dark:border-slate-800 dark:bg-slate-950/70">
+    <section className="panel p-6">
       <div className="flex flex-wrap gap-2">
         {MODES.map((item) => (
           <button

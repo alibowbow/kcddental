@@ -200,5 +200,5 @@ export interface KcdChangeEntry {
 export interface SearchResult {
   code: string
   score: number
-  matchType: 'exact-code' | 'prefix-code' | 'exact-name' | 'prefix-name' | 'fuzzy' | 'notes'
+  matchType: 'exact-code' | 'prefix-code' | 'exact-name' | 'prefix-name' | 'alias' | 'fuzzy' | 'notes'
 }

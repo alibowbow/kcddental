@@ -6,7 +6,7 @@ export default function DiffPage() {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-3xl border border-slate-200/70 bg-white/85 p-6 shadow-panel dark:border-slate-800 dark:bg-slate-950/70">
+      <section className="panel p-6">
         <h1 className="text-3xl font-bold text-slate-950 dark:text-slate-50">KCD 변경 비교</h1>
         <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
           검증된 changelog 데이터가 있을 때만 added / removed / renamed / moved를 표시합니다.

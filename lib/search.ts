@@ -2,6 +2,7 @@ import Fuse from 'fuse.js'
 
 import { enrichmentData } from './data/enrichment'
 import { officialKcdData } from './data/official-kcd'
+import { searchAliases } from './data/search-aliases'
 import type { SearchResult } from './types'
 
 interface SearchDocument {
@@ -12,9 +13,16 @@ interface SearchDocument {
   normalizedName: string
   normalizedJoined: string
   notes: string
+  aliases: string[]
+  normalizedAliases: string[]
   sortOrder: number
   provenance: 'official-only' | 'verified' | 'pending'
 }
+
+const aliasesByCode = searchAliases.reduce<Record<string, string[]>>((acc, alias) => {
+  acc[alias.code] = acc[alias.code] ? [...acc[alias.code], alias.term] : [alias.term]
+  return acc
+}, {})
 
 export interface SearchFilters {
   scope?: 'all' | 'primary' | 'supplemental'
@@ -34,11 +42,14 @@ const searchDocuments: SearchDocument[] = officialKcdData.map((entry) => {
     ...(enrichment?.name_en ? [enrichment.name_en] : []),
   ]
 
+  const aliases = aliasesByCode[entry.code] ?? []
+
   const notes = [
     ...entry.includes_official,
     ...entry.excludes_official,
     ...entry.notes_official,
     ...synonyms,
+    ...aliases,
   ].join(' ')
 
   return {
@@ -49,6 +60,8 @@ const searchDocuments: SearchDocument[] = officialKcdData.map((entry) => {
     normalizedName: normalize(entry.name_ko_official),
     normalizedJoined: normalize([entry.code, entry.name_ko_official, notes].join(' ')),
     notes,
+    aliases,
+    normalizedAliases: aliases.map(normalize),
     sortOrder: entry.sort_order,
     provenance: enrichment?.provenance.status ?? 'official-only',
   }
@@ -58,6 +71,7 @@ const fuse = new Fuse(searchDocuments, {
   keys: [
     { name: 'code', weight: 4 },
     { name: 'officialName', weight: 4 },
+    { name: 'aliases', weight: 3 },
     { name: 'notes', weight: 2 },
   ],
   includeScore: true,
@@ -112,6 +126,10 @@ export function searchOfficialEntries(query: string, filters: SearchFilters = {}
       candidate = { code: document.code, score: 20 + document.sortOrder / 1000, matchType: 'exact-name' }
     } else if (document.normalizedName.startsWith(normalizedQuery)) {
       candidate = { code: document.code, score: 30 + document.sortOrder / 1000, matchType: 'prefix-name' }
+    } else if (document.normalizedAliases.some((alias) => alias === normalizedQuery)) {
+      candidate = { code: document.code, score: 34 + document.sortOrder / 1000, matchType: 'alias' }
+    } else if (document.normalizedAliases.some((alias) => alias.includes(normalizedQuery))) {
+      candidate = { code: document.code, score: 44 + document.sortOrder / 1000, matchType: 'alias' }
     } else if (document.normalizedJoined.includes(normalizedQuery)) {
       candidate = { code: document.code, score: 70 + document.sortOrder / 1000, matchType: 'notes' }
     }

@@ -24,7 +24,7 @@ export function ClaimHubClient() {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-3xl border border-slate-200/70 bg-white/85 p-6 shadow-panel dark:border-slate-800 dark:bg-slate-950/70">
+      <section className="panel p-6">
         <h1 className="text-3xl font-bold text-slate-950 dark:text-slate-50">보험 청구 허브</h1>
         <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
           공식 KCD 코드와 검증된 청구 근거를 분리해 보여줍니다. 검증된 급여 자료가 없으면 빈 상태를 명확히 표시합니다.
