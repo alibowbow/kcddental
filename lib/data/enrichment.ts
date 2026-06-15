@@ -36,6 +36,14 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
       '통증의 위치, 시작 시점, 지속 시간, 유발 요인, 기존 치과 치료 이력을 함께 확인합니다.',
       '필요하면 타진, 동요도, 치수, 저작 검사를 추가해 병변 범위와 관련 구조의 상태를 평가합니다.',
     ],
+    differential_diagnosis: [
+      {
+        code: 'K04',
+        name_ko: '치수 및 치근단주위조직의 질환',
+        key_difference:
+          '치아우식은 법랑질·상아질 등 치아 경조직에 국한된 손상이고, 우식이 치수까지 진행해 염증·괴사·근단 병변이 생기면 K04로 분류합니다.',
+      },
+    ],
     treatment: [
       {
         approach: '우식 제거와 수복 치료',
@@ -159,6 +167,20 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
       '방사선 촬영으로 치근단 부위 염증, 농양, 낭성 변화 여부를 평가합니다.',
       '기존 충치, 균열, 외상력, 과거 근관치료 여부를 함께 확인합니다.',
     ],
+    differential_diagnosis: [
+      {
+        code: 'K02',
+        name_ko: '치아우식',
+        key_difference:
+          'K02는 치수에 도달하기 전 경조직의 우식이고, K04는 우식·외상 등으로 치수와 치근단 주위 조직에 염증이 생긴 이후 단계입니다.',
+      },
+      {
+        code: 'K05',
+        name_ko: '치은염 및 치주질환',
+        key_difference:
+          'K04는 치아 내부의 치수·치근단 문제이고, K05는 치아를 둘러싼 잇몸·치주조직의 염증성 질환입니다.',
+      },
+    ],
     treatment: [
       {
         approach: '가역성 치수염 단계의 원인 제거',
@@ -278,6 +300,20 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
       '위험 요인과 전신질환 여부를 함께 확인합니다.',
       '파노라마나 치근단 방사선 사진으로 치조골 소실과 치아 상태를 평가합니다.',
       '치주낭 깊이, 부착 소실, 치아 동요도, 분지부 병변 등을 치주검사로 확인합니다.',
+    ],
+    differential_diagnosis: [
+      {
+        code: 'K06',
+        name_ko: '잇몸 및 무치성 치조융기의 기타 장애',
+        key_difference:
+          'K05는 치태·치석과 연관된 잇몸·치주조직의 염증성 질환이고, K06은 치은퇴축·치은비대·의치 자극처럼 K05로 분류되지 않는 잇몸 문제입니다.',
+      },
+      {
+        code: 'K04',
+        name_ko: '치수 및 치근단주위조직의 질환',
+        key_difference:
+          'K05는 치아를 둘러싼 잇몸·치주조직의 질환이고, K04는 치아 내부의 치수와 치근단 주위 조직의 질환입니다.',
+      },
     ],
     treatment: [
       {
@@ -408,6 +444,13 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
       '병변의 모양과 위치를 육안으로 확인하고, 발생 시기와 반복 여부를 묻습니다.',
       '병변이 2~3주 이상 지속되거나 치료에 반응하지 않으면 조직검사를 포함한 추가 평가가 필요합니다.',
       '반복되거나 전신질환이 의심되면 빈혈, 면역저하, 혈액질환 등을 감별하기 위한 검사를 고려합니다.',
+    ],
+    differential_diagnosis: [
+      {
+        code: 'K13.0',
+        name_ko: '입술의 질환',
+        key_difference: '공식 분류에서 구순염(입술의 질환)은 K12 구내염이 아니라 K13.0으로 분류합니다.',
+      },
     ],
     treatment: [
       {
@@ -571,6 +614,14 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
       '치아 표면의 닳음, 광택, 균열, 민감도 변화를 임상적으로 확인합니다.',
       '식습관, 산 노출, 위산 역류, 이갈이 습관 같은 배경 요인을 함께 평가합니다.',
       '필요하면 반복 사진이나 모형 비교로 진행 여부를 확인합니다.',
+    ],
+    differential_diagnosis: [
+      {
+        code: 'K02',
+        name_ko: '치아우식',
+        key_difference:
+          'K03은 마모·침식·교모처럼 우식이 아닌 경조직 변화이고, 세균에 의한 치아우식은 K02로 분류합니다.',
+      },
     ],
     prevention: [
       '산성 음료와 간식 노출을 줄이고, 섭취 후 바로 강하게 칫솔질하지 않습니다.',
@@ -832,6 +883,23 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
       '백색·홍색 병변이 닦여 없어지지 않거나 1~2주 이상 지속되면 치과 또는 병원 평가가 필요합니다.',
       '원인 불명 종괴나 지속 병변은 생검을 포함한 추가 검사를 고려합니다.',
     ],
+    differential_diagnosis: [
+      {
+        code: 'K12',
+        name_ko: '구내염 및 관련 병변',
+        key_difference: '구내염 및 관련 병변은 K13이 아니라 K12로 분류합니다.',
+      },
+      {
+        code: 'K14',
+        name_ko: '혀의 질환',
+        key_difference: '혀에 국한된 질환은 K13이 아니라 K14로 분류합니다.',
+      },
+      {
+        code: 'K09',
+        name_ko: '달리 분류되지 않은 구강영역의 낭',
+        key_difference: '구강 부위의 낭은 K13이 아니라 K09로 분류합니다.',
+      },
+    ],
     treatment: [
       {
         approach: '원인 제거와 점막 자극 감소',
@@ -950,6 +1018,14 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
       '빈혈, 비타민 결핍, 당뇨병, 칸디다증, 구강건조, 알레르기, 약물 복용 여부를 함께 점검합니다.',
       '눈에 띄는 병변이 없지만 통증이 지속되면 구강 작열감 증후군과 다른 원인을 감별합니다.',
     ],
+    differential_diagnosis: [
+      {
+        code: 'K13',
+        name_ko: '입술 및 구강점막의 기타 질환',
+        key_difference:
+          '혀의 백반·모발성 백반·점막하 섬유증 등 일부 병변은 공식 분류에서 K14가 아니라 K13(K13.2·K13.3·K13.5)으로 분류합니다.',
+      },
+    ],
     treatment: [
       {
         approach: '원인 질환 교정',
@@ -1057,6 +1133,14 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
       '구강검진과 치과 방사선 사진으로 결손치, 과잉치, 구조 이상, 맹출 방해 요소를 평가합니다.',
       '치아 강도나 색 변화가 뚜렷하면 유전성 구조 이상 여부를 함께 고려합니다.',
     ],
+    differential_diagnosis: [
+      {
+        code: 'K01',
+        name_ko: '매몰치 및 매복치',
+        key_difference:
+          'K00은 치아의 발육·형성·맹출 자체의 이상이고, 정상적으로 형성된 치아가 제 위치로 나오지 못한 매몰·매복은 K01로 분류합니다.',
+      },
+    ],
     treatment: [
       {
         approach: '조기 발견과 주기적 추적 관찰',
@@ -1150,6 +1234,18 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
     diagnostic_criteria: [
       '약물 복용력, 칫솔질 습관, 치태 관리, 의치 적합도를 함께 확인합니다.',
       '치은퇴축, 치은비대, 의치 자극 중 어느 문제에 해당하는지 구분합니다.',
+    ],
+    differential_diagnosis: [
+      {
+        code: 'K05',
+        name_ko: '치은염 및 치주질환',
+        key_difference: '염증성 치은염(예: 만성 치은염 K05.1)은 K05로 분류하고, K06은 비염증성 잇몸·치조융기 문제를 다룹니다.',
+      },
+      {
+        code: 'K08.2',
+        name_ko: '무치성 치조융기의 위축',
+        key_difference: '무치성 치조융기의 위축은 공식 분류에서 K06이 아니라 K08.2로 분류합니다.',
+      },
     ],
     symptoms: [
       {
@@ -1250,6 +1346,14 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
       '물림 이상·씹기 어려움·턱 불편이 턱 크기, 치열궁 관계, 치아 위치, 턱관절 중 어느 하위 유형에 해당하는지 구분합니다.',
       '교정 평가가 필요한지, 턱관절 중심 평가가 필요한지 판단합니다.',
     ],
+    differential_diagnosis: [
+      {
+        code: 'K10.8',
+        name_ko: '기타 명시된 턱의 질환',
+        key_difference:
+          '한쪽 턱관절 과두의 증식이나 형성저하는 공식 분류에서 K07이 아니라 K10.8(기타 명시된 턱의 질환)로 분류합니다.',
+      },
+    ],
     treatment: [
       {
         approach: '하위 유형에 맞는 교정·보존·수술 계획',
@@ -1337,6 +1441,13 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
       '파노라마 X-ray나 CBCT로 낭의 위치와 치아·뼈와의 관계를 확인합니다.',
       '낭의 하위 유형은 영상 소견과 수술 후 병리 결과를 함께 보고 판단합니다.',
       '무증상이라도 매복치 주변 음영이나 전치부 구개 부종이 있으면 평가가 필요합니다.',
+    ],
+    differential_diagnosis: [
+      {
+        code: 'K04.8',
+        name_ko: '치근낭',
+        key_difference: '치근낭은 공식 분류에서 K09가 아니라 치수 기원의 K04.8로 분류합니다.',
+      },
     ],
     treatment: [
       {
