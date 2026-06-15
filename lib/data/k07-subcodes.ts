@@ -898,6 +898,9 @@ const toothPositionEntries: K07Config[] = [
       '문제가 주로 위아래 bite pattern이면 K07.2, 턱뼈 비율이면 K07.0~K07.1을 우선합니다.',
     ],
     treatment: orthodonticEvaluation,
+    prevention: [
+      '손가락 빨기나 혀 내밀기 같은 습관을 조기에 교정하면 치아 위치 이상 위험을 줄이는 데 도움이 될 수 있습니다.',
+    ],
     references: toothPositionReferences,
   },
   {

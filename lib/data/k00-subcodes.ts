@@ -392,6 +392,7 @@ export const k00SubcodeEntries: Record<string, EnrichedDiseaseEntry> = {
       '치아 발육 과정의 크기·형태 형성 이상',
       '일부는 유전성 또는 선천성 질환과 동반',
     ],
+    risk_factors: ['관련 유전성 또는 선천성 질환', '가족력'],
     symptoms: [
       {
         name: '작은 치아, 큰 치아, 이중처럼 보이는 치아, 안으로 말린 치아처럼 크기·모양이 또래와 다르게 보일 수 있습니다.',
@@ -591,6 +592,10 @@ export const k00SubcodeEntries: Record<string, EnrichedDiseaseEntry> = {
         is_pathognomonic: false,
       },
     ],
+    prevention: [
+      '치아 형성 이상이 의심되면 X-ray 등으로 평가하고, 증후군이나 내분비 질환 동반 여부를 함께 확인합니다.',
+      '정기 검진으로 치아 형성과 맹출 상태를 추적합니다.',
+    ],
     patient_friendly_summary:
       'K00.4는 치아가 만들어지는 과정에서 생긴 발육 이상을 묶는 코드입니다. 법랑질이 얇거나, root가 휘거나, 국소적으로 기형 치아가 생기는 경우처럼 형태가 꽤 다양합니다.',
     references: k00FormationReferences,
@@ -709,6 +714,10 @@ export const k00SubcodeEntries: Record<string, EnrichedDiseaseEntry> = {
       '법랑질형성부전, 상아질형성부전처럼 치아 구조의 유전성 약화 패턴을 확인합니다.',
       '가족력과 전신 골질환 동반 여부를 함께 평가합니다.',
     ],
+    prevention: [
+      '치아 구조가 약해 쉽게 닳고 깨질 수 있으므로 정기 검진과 보호적 관리로 충치·파절 위험을 줄입니다.',
+      '가족력이 있으면 조기에 평가받는 것이 도움이 됩니다.',
+    ],
     patient_friendly_summary:
       'K00.5는 치아가 나는 시점보다, 치아 재료 자체가 유전적으로 약하게 형성된 경우를 뜻합니다. 쉽게 닳고 변색되며 부서지기 쉬운 치아가 반복될 때 이 범주를 생각합니다.',
     references: k00HereditaryReferences,
@@ -784,6 +793,10 @@ export const k00SubcodeEntries: Record<string, EnrichedDiseaseEntry> = {
         evidence_level: 'Expert',
         is_insured: null,
       },
+    ],
+    prevention: [
+      '생후 9개월까지 첫 치아가 보이지 않는 등 맹출 시기가 크게 벗어나면 평가를 받습니다.',
+      '필요 시 X-ray로 영구치 존재와 맹출 방해 요소를 확인합니다.',
     ],
     patient_friendly_summary:
       'K00.6은 치아가 너무 빨리, 너무 늦게, 또는 예상과 다른 방식으로 나오는 문제를 묶는 코드입니다. 단순히 기다리면 되는 경우도 있지만, X-ray나 교정 계획이 필요한 경우도 섞여 있습니다.',

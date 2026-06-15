@@ -1147,6 +1147,10 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
     ],
     risk_factors: ['약물 복용력', '과도한 힘의 칫솔질', '치태·치석 관리 부족', '잘 맞지 않는 의치 사용'],
     anatomy_involved: ['치은', '치근 노출 부위', '무치성 치조융기', '의치가 닿는 구강 점막'],
+    diagnostic_criteria: [
+      '약물 복용력, 칫솔질 습관, 치태 관리, 의치 적합도를 함께 확인합니다.',
+      '치은퇴축, 치은비대, 의치 자극 중 어느 문제에 해당하는지 구분합니다.',
+    ],
     symptoms: [
       {
         name: '잇몸이 내려가 치아 뿌리가 드러나고, 찬 것에 시리거나 양치할 때 불편할 수 있습니다.',
