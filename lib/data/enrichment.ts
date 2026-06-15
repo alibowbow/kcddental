@@ -110,11 +110,13 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
       ],
     },
     epidemiology: {
+      prevalence_korea:
+        '질병관리청 2024년 아동구강건강실태조사에서 12세 아동의 영구치 우식 경험자율은 60.3%였고, 우식을 경험한 영구치는 1인당 평균 약 1.9개로 보고되었습니다.',
       prevalence_global:
         'WHO 세계 구강건강 현황 보고서(2022)는 영구치의 우식이 전 세계 약 20억 명에게, 유치의 우식이 약 5억 1,400만 명의 어린이에게 영향을 준다고 추정합니다.',
       trend:
-        '질병관리청 설명 자료는 충치를 매우 흔한 구강질환으로 다루며, 예방을 위해 식이 조절과 불소 사용, 정기 검진의 중요성을 강조합니다.',
-      source: '질병관리청 국가건강정보포털 충치 페이지(2024), 구강병 예방 및 관리방법 페이지(2024), WHO Oral health fact sheet(2023)',
+        '12세 아동 영구치 우식 경험자율은 2015년 54.6%에서 2024년 60.3%로 최근 다시 상승하는 추세이며, 질병관리청은 예방을 위해 식이 조절과 불소 사용, 정기 검진의 중요성을 강조합니다.',
+      source: '질병관리청 2024년 아동구강건강실태조사(2025), 국가건강정보포털 충치 페이지(2024), WHO Oral health fact sheet(2023)',
     },
     patient_friendly_summary:
       '충치는 치아 표면에 붙은 세균이 당을 분해하며 만든 산 때문에 생깁니다. 초기에 관리하면 더 깊은 통증과 치아 손실을 줄일 수 있어, 집에서의 위생관리와 정기 검진이 중요합니다.',
@@ -139,6 +141,12 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
           url: 'https://www.who.int/news-room/fact-sheets/detail/oral-health',
           year: 2023,
           note: '영구치·유치 우식의 전 세계 추정 환자 수를 prevalence_global에 반영했습니다.',
+        },
+        {
+          title: '2024년 아동구강건강실태조사 결과 | 질병관리청',
+          url: 'https://www.kdca.go.kr/board/board.es?mid=a20501010000&bid=0015',
+          year: 2025,
+          note: '12세 아동 영구치 우식 경험자율 60.3%와 1인당 평균 1.9개를 prevalence_korea에 반영했으며, 주요 언론(뉴스1 등)으로 교차 확인했습니다.',
         },
       ],
     },
@@ -1807,6 +1815,18 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
       '증상 위치, 유발 요인, 지속 기간을 자세히 묻습니다.',
       '턱관절과 저작근의 압통, 클릭음, 개구 범위를 진찰합니다.',
       '필요하면 X-ray, CT, MRI 같은 영상검사를 고려합니다.',
+    ],
+    differential_diagnosis: [
+      {
+        code: 'S03.0',
+        name_ko: '턱의 탈구',
+        key_difference: '현존하는 턱관절의 탈구는 K07.6이 아니라 외상 코드 S03.0으로 분류합니다.',
+      },
+      {
+        code: 'S03.4',
+        name_ko: '턱의 염좌 및 긴장',
+        key_difference: '턱관절의 염좌·긴장은 K07.6이 아니라 외상 코드 S03.4로 분류합니다.',
+      },
     ],
     treatment: [
       {

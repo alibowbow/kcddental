@@ -26,6 +26,7 @@ type K07Config = {
   treatment?: EnrichedDiseaseEntry['treatment']
   prognosis?: string
   prevention?: string[]
+  differential_diagnosis?: EnrichedDiseaseEntry['differential_diagnosis']
 }
 
 const K07_UPDATED_AT = '2026-03-23'
@@ -71,6 +72,7 @@ function createK07Entry(config: K07Config): EnrichedDiseaseEntry {
     treatment,
     prognosis,
     prevention,
+    differential_diagnosis,
   } = config
 
   return makeK07Entry({
@@ -90,6 +92,7 @@ function createK07Entry(config: K07Config): EnrichedDiseaseEntry {
     treatment,
     prognosis,
     prevention,
+    differential_diagnosis,
     patient_friendly_summary: summary,
     references,
   })
@@ -900,6 +903,13 @@ const toothPositionEntries: K07Config[] = [
     treatment: orthodonticEvaluation,
     prevention: [
       '손가락 빨기나 혀 내밀기 같은 습관을 조기에 교정하면 치아 위치 이상 위험을 줄이는 데 도움이 될 수 있습니다.',
+    ],
+    differential_diagnosis: [
+      {
+        code: 'K01',
+        name_ko: '매몰치 및 매복치',
+        key_difference: '위치 이상 없이 단순히 묻히거나 매복된 치아는 공식 분류에서 K07.3이 아니라 K01로 분류합니다.',
+      },
     ],
     references: toothPositionReferences,
   },

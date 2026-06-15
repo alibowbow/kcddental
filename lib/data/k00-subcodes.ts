@@ -334,6 +334,13 @@ export const k00SubcodeEntries: Record<string, EnrichedDiseaseEntry> = {
         is_insured: null,
       },
     ],
+    differential_diagnosis: [
+      {
+        code: 'K01.18',
+        name_ko: '과잉매복치',
+        key_difference: '위치를 잡지 못하고 매복된 과잉치는 공식 분류에서 K00.1이 아니라 K01.18(과잉매복치)로 분류합니다.',
+      },
+    ],
     patient_friendly_summary:
       'K00.1은 정상 개수보다 여분의 치아가 있는 경우를 뜻합니다. 그냥 특이한 모양으로 끝나지 않고, 영구치가 안 나오거나 배열이 틀어지는 원인이 될 수 있습니다.',
     references: k00SupernumeraryReferences,
@@ -595,6 +602,18 @@ export const k00SubcodeEntries: Record<string, EnrichedDiseaseEntry> = {
     prevention: [
       '치아 형성 이상이 의심되면 X-ray 등으로 평가하고, 증후군이나 내분비 질환 동반 여부를 함께 확인합니다.',
       '정기 검진으로 치아 형성과 맹출 상태를 추적합니다.',
+    ],
+    differential_diagnosis: [
+      {
+        code: 'K00.5',
+        name_ko: '달리 분류되지 않은 치아구조의 유전성 장애',
+        key_difference: '치아구조의 유전성 장애는 K00.4가 아니라 K00.5로 분류합니다.',
+      },
+      {
+        code: 'K00.3',
+        name_ko: '반상치',
+        key_difference: '법랑질의 반점(반상치)은 K00.4가 아니라 K00.3으로 분류합니다.',
+      },
     ],
     patient_friendly_summary:
       'K00.4는 치아가 만들어지는 과정에서 생긴 발육 이상을 묶는 코드입니다. 법랑질이 얇거나, root가 휘거나, 국소적으로 기형 치아가 생기는 경우처럼 형태가 꽤 다양합니다.',
@@ -939,6 +958,18 @@ export const k00SubcodeEntries: Record<string, EnrichedDiseaseEntry> = {
     diagnostic_criteria: [
       '맹출 지연이나 결손이 아닌, 명시된 발육성 색조·구조 이상인지 확인합니다.',
       '혈액형 부적합, 담도 질환, 포르피린증, 테트라사이클린 노출처럼 원인이 명시되는지 함께 봅니다.',
+    ],
+    differential_diagnosis: [
+      {
+        code: 'K03.7',
+        name_ko: '치아경조직의 맹출후 색조변화',
+        key_difference: 'K00.8은 치아 형성 중 생긴 내인성 색조변화이고, 맹출 이후 국소 원인에 의한 색조변화는 K03.7로 분류합니다.',
+      },
+      {
+        code: 'K03.6',
+        name_ko: '치아의 침착물[유착물]',
+        key_difference: '맹출 후 치아 표면의 침착물·착색은 발육성 이상인 K00.8이 아니라 K03.6으로 분류합니다.',
+      },
     ],
     patient_friendly_summary:
       '치아가 형성될 때의 전신 상태나 약물 노출 때문에 색이 안쪽부터 달라진 경우처럼, 다른 K00 세부 코드로 바로 넣기 어려운 발육 이상에 쓰는 범주입니다.',
