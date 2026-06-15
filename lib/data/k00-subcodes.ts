@@ -267,6 +267,11 @@ export const k00SubcodeEntries: Record<string, EnrichedDiseaseEntry> = {
       '치아 맹출 시기와 순서를 확인하고 가족력과 동반 이상을 묻습니다.',
       '치과 X-ray로 실제 치배 유무를 확인해 단순 지연과 결손을 구분합니다.',
     ],
+    prevention: [
+      '생후 9개월이 지나도 첫 치아가 보이지 않으면 전문가 상담을 받는 것이 좋습니다.',
+      '가족력과 치과 X-ray로 단순한 맹출 시기 차이인지 발육성 결손인지 확인합니다.',
+      '치아가 형성되지 않은 부위는 필요에 따라 보철·교정 치료로 공간과 기능을 관리할 수 있습니다.',
+    ],
     patient_friendly_summary:
       'K00.0은 치아가 늦게 나는 정도를 넘어, 아예 형성되지 않은 치아가 있는 경우를 묶는 코드입니다. 일부만 없는 경우도 있고 전체가 없는 경우도 있어, 단순히 기다리기보다 X-ray로 확인하는 과정이 중요합니다.',
     references: k00AgenesisReferences,
@@ -381,6 +386,19 @@ export const k00SubcodeEntries: Record<string, EnrichedDiseaseEntry> = {
       '구강검진과 X-ray로 crown, root, tubercle, invagination 여부를 확인합니다.',
       'syndromic finding이 의심되면 가족력과 다른 craniofacial 이상을 함께 봅니다.',
     ],
+    pathophysiology:
+      '치아가 형성되는 과정에서 크기나 형태가 정상 범위를 벗어나 발육하면서 나타나며, 일부는 유전성 또는 선천성 조건과 함께 관찰됩니다.',
+    etiology: [
+      '치아 발육 과정의 크기·형태 형성 이상',
+      '일부는 유전성 또는 선천성 질환과 동반',
+    ],
+    symptoms: [
+      {
+        name: '작은 치아, 큰 치아, 이중처럼 보이는 치아, 안으로 말린 치아처럼 크기·모양이 또래와 다르게 보일 수 있습니다.',
+        severity: 'mild',
+        is_pathognomonic: false,
+      },
+    ],
     patient_friendly_summary:
       'K00.2는 치아의 크기와 모양이 정상과 다른 여러 발육 이상을 묶는 코드입니다. 같은 K00.2 안에서도 작은 치아, 큰 치아, 이중처럼 보이는 치아, 안으로 말린 치아 등 모습이 꽤 다를 수 있습니다.',
     references: k00ShapeReferences,
@@ -481,6 +499,38 @@ export const k00SubcodeEntries: Record<string, EnrichedDiseaseEntry> = {
     synonyms_ko: ['반상치', '치아 반점'],
     definition:
       '반상치는 치아 표면에 white flecks, spots, lines 또는 다른 발달성 색조 변화를 보이는 상태를 뜻합니다. dental fluorosis가 가장 익숙한 예지만 원인은 하나로 단정할 수 없습니다.',
+    pathophysiology:
+      '치아가 형성되는 동안 법랑질의 광화 과정이 영향을 받아 색조나 표면이 고르지 않게 나타납니다. 발육기의 과도한 불소 노출이 대표적인 예지만 유일한 원인은 아닙니다.',
+    etiology: [
+      '발육기의 과도한 불소 노출(치아 불소증)',
+      '유전 요인',
+      '치아 형성기의 감염이나 고열',
+      '일부 약물 노출이나 기타 법랑질 형성 결함',
+    ],
+    risk_factors: [
+      '치아 형성기 아동의 높은 불소 섭취',
+      '치아 형성기의 전신 질환·고열·약물 노출 이력',
+    ],
+    symptoms: [
+      {
+        name: '법랑질에 하얀 반점, 점, 줄무늬가 보이거나 색이 고르지 않게 나타날 수 있습니다.',
+        severity: 'mild',
+        is_pathognomonic: false,
+      },
+      {
+        name: '심한 경우 더 넓은 범위의 법랑질 색조·표면 변화가 나타날 수 있습니다.',
+        severity: 'moderate',
+        is_pathognomonic: false,
+      },
+    ],
+    diagnostic_criteria: [
+      '반점이 불소성(치아 불소증) 양상인지 다른 발달성 색조 이상인지 구분합니다.',
+      '치아 형성기의 불소 노출, 감염, 고열, 약물 이력을 함께 확인합니다.',
+    ],
+    prevention: [
+      '치아 형성기 아동의 불소 섭취량을 적정 수준으로 관리합니다.',
+      '대부분의 경미한 반상치는 통증이 없으며 심미적 관리가 중심입니다.',
+    ],
     patient_friendly_summary:
       'K00.3은 치아가 반점처럼 얼룩져 보이거나 법랑질 색이 고르지 않은 상태를 묶는 코드입니다. fluorosis가 대표적이지만, 모든 반점 치아가 불소 때문이라고 볼 수는 없습니다.',
     references: k00MottledReferences,
@@ -522,6 +572,24 @@ export const k00SubcodeEntries: Record<string, EnrichedDiseaseEntry> = {
     diagnostic_criteria: [
       '구강검진과 X-ray로 crown/root formation defect, local developmental defect 여부를 확인합니다.',
       '국소 문제인지 전신적·증후군성 배경이 있는지 함께 살핍니다.',
+    ],
+    pathophysiology:
+      '치아가 만들어지는 과정(법랑질·시멘트질·치관/치근 형성)에 이상이 생겨 형성이 지연·결손되거나 형태가 비정상적으로 나타납니다.',
+    etiology: [
+      '치아 형성 과정의 발육 이상',
+      '일부는 증후군이나 내분비 질환과 연관',
+      '쇄골두개이형성증처럼 골격 소견을 함께 동반하는 질환',
+    ],
+    risk_factors: [
+      '관련 증후군이나 내분비 질환',
+      '가족력',
+    ],
+    symptoms: [
+      {
+        name: '치아가 늦게 나거나 형성되지 않고, 형태가 비정상적으로 보일 수 있습니다.',
+        severity: 'mild',
+        is_pathognomonic: false,
+      },
     ],
     patient_friendly_summary:
       'K00.4는 치아가 만들어지는 과정에서 생긴 발육 이상을 묶는 코드입니다. 법랑질이 얇거나, root가 휘거나, 국소적으로 기형 치아가 생기는 경우처럼 형태가 꽤 다양합니다.',
@@ -615,6 +683,32 @@ export const k00SubcodeEntries: Record<string, EnrichedDiseaseEntry> = {
     definition:
       'K00.5는 법랑질이나 상아질 같은 치아 구조 자체가 유전적으로 약하거나 비정상적인 상태를 묶는 범주입니다. 빠른 마모, 변색, 깨짐이 공통 theme입니다.',
     anatomy_involved: ['법랑질', '상아질', '치아 내부 구조'],
+    pathophysiology:
+      '법랑질이나 상아질을 만드는 유전 정보에 이상이 있어 치아 구조 자체가 약하게 형성됩니다. 그 결과 쉽게 닳고 변색되며 깨지기 쉽습니다.',
+    etiology: [
+      '법랑질·상아질 형성과 관련된 유전적 이상',
+      '불완전 상아질형성증 1형처럼 골형성부전증 같은 전신 골질환과 동반될 수 있음',
+    ],
+    risk_factors: [
+      '가족력',
+      '동반된 유전성 골질환(예: 골형성부전증)',
+    ],
+    symptoms: [
+      {
+        name: '치아가 작거나 변색되고, 패임·홈이 보이며 쉽게 닳거나 깨질 수 있습니다.',
+        severity: 'moderate',
+        is_pathognomonic: false,
+      },
+      {
+        name: '구조가 약해 충치와 파절 위험이 높아질 수 있습니다.',
+        severity: 'moderate',
+        is_pathognomonic: false,
+      },
+    ],
+    diagnostic_criteria: [
+      '법랑질형성부전, 상아질형성부전처럼 치아 구조의 유전성 약화 패턴을 확인합니다.',
+      '가족력과 전신 골질환 동반 여부를 함께 평가합니다.',
+    ],
     patient_friendly_summary:
       'K00.5는 치아가 나는 시점보다, 치아 재료 자체가 유전적으로 약하게 형성된 경우를 뜻합니다. 쉽게 닳고 변색되며 부서지기 쉬운 치아가 반복될 때 이 범주를 생각합니다.',
     references: k00HereditaryReferences,
@@ -674,6 +768,22 @@ export const k00SubcodeEntries: Record<string, EnrichedDiseaseEntry> = {
       '정상 맹출 시기와 비교해 timing variation을 확인합니다.',
       'X-ray로 실제 영구치 존재 여부와 맹출 방해 요소를 평가합니다.',
       '선천치·신생치처럼 너무 이른 eruption은 mobility와 aspiration risk를 함께 봅니다.',
+    ],
+    pathophysiology:
+      '치아가 잇몸을 뚫고 나오는 시기와 순서에 이상이 생겨, 너무 이르거나 늦게 나오거나, 유치가 오래 남아 영구치 교환이 늦어질 수 있습니다.',
+    etiology: [
+      '정상 범위 안의 맹출 시기 차이',
+      '맹출을 방해하는 국소 요인',
+      '잔존 유치나 형성되지 않은 영구치',
+    ],
+    treatment: [
+      {
+        approach: '경과 관찰 또는 교정·외과적 계획',
+        description:
+          '맹출이 막히거나 비정상적인 경우 교정 또는 외과적 맹출 유도를 고려할 수 있고, 선천치가 흔들리거나 흡인 위험이 있으면 발치를 고려할 수 있습니다.',
+        evidence_level: 'Expert',
+        is_insured: null,
+      },
     ],
     patient_friendly_summary:
       'K00.6은 치아가 너무 빨리, 너무 늦게, 또는 예상과 다른 방식으로 나오는 문제를 묶는 코드입니다. 단순히 기다리면 되는 경우도 있지만, X-ray나 교정 계획이 필요한 경우도 섞여 있습니다.',
@@ -769,6 +879,15 @@ export const k00SubcodeEntries: Record<string, EnrichedDiseaseEntry> = {
         is_pathognomonic: false,
       },
     ],
+    diagnostic_criteria: [
+      '치아가 잇몸을 뚫고 나오는 정상 과정과 연관된 가벼운 증상인지 확인합니다.',
+      '고열이나 지속적 설사 등 전신 증상이 있으면 단순 생치로 보지 않고 다른 원인을 확인합니다.',
+    ],
+    prevention: [
+      '치발기나 차갑게 한 씹을 거리로 잇몸 불편을 줄여줄 수 있습니다.',
+      '불편이 심하면 연령에 맞는 진통제를 필요한 경우에 한해 사용할 수 있습니다.',
+      '발열·설사 같은 전신 증상은 생치로만 돌리지 않습니다.',
+    ],
     patient_friendly_summary:
       'K00.7은 아기 이가 날 때 생기는 비교적 가벼운 잇몸 불편과 보챔을 설명하는 코드입니다. 다만 고열이나 설사 같은 전신 증상은 teething으로만 돌리지 말고 다른 원인을 확인해야 합니다.',
     references: k00TeethingReferences,
@@ -779,6 +898,35 @@ export const k00SubcodeEntries: Record<string, EnrichedDiseaseEntry> = {
     synonyms_ko: ['기타 치아발육의 장애'],
     definition:
       'K00.8은 맹출 지연이나 무치증이 아닌, 형성 중 색조 변화처럼 다른 명시된 치아 발육 이상을 묶는 코드입니다. 특히 intrinsic discoloration이 중요한 theme입니다.',
+    pathophysiology:
+      '치아가 형성되는 동안 색조나 구조에 영향을 주는 요인이 작용해, 맹출 지연이나 결손이 아닌 형태의 발육 이상으로 나타납니다. 특히 안쪽에서부터 색이 달라지는 내인성 색조변화가 중요한 양상입니다.',
+    etiology: [
+      '유전성 법랑질 문제',
+      '대사 질환',
+      '환경적 요인',
+      '치아 형성기의 감염',
+      '형성기의 약물 노출',
+    ],
+    risk_factors: [
+      '치아 형성기의 전신 질환·감염·약물 노출 이력',
+      '관련 유전 질환',
+    ],
+    symptoms: [
+      {
+        name: '치아 색이 안쪽부터 달라 보이거나, 패임·홈·반투명함이 나타날 수 있습니다.',
+        severity: 'mild',
+        is_pathognomonic: false,
+      },
+      {
+        name: '법랑질·상아질이 약해 빠른 마모, 시림, 충치, 파절로 이어질 수 있습니다.',
+        severity: 'moderate',
+        is_pathognomonic: false,
+      },
+    ],
+    diagnostic_criteria: [
+      '맹출 지연이나 결손이 아닌, 명시된 발육성 색조·구조 이상인지 확인합니다.',
+      '혈액형 부적합, 담도 질환, 포르피린증, 테트라사이클린 노출처럼 원인이 명시되는지 함께 봅니다.',
+    ],
     patient_friendly_summary:
       '치아가 형성될 때의 전신 상태나 약물 노출 때문에 색이 안쪽부터 달라진 경우처럼, 다른 K00 세부 코드로 바로 넣기 어려운 발육 이상에 쓰는 범주입니다.',
     references: k00OtherDevelopmentReferences,
@@ -833,6 +981,17 @@ export const k00SubcodeEntries: Record<string, EnrichedDiseaseEntry> = {
     name_en: 'Unspecified disorder of tooth development',
     definition:
       '치아발육의 장애가 분명하지만 결손, 맹출, 형태, 색조, 구조 이상 중 어느 쪽이 핵심인지 충분히 적혀 있지 않을 때 쓰는 broad placeholder code입니다.',
+    symptoms: [
+      {
+        name: '맹출 지연·결손, 형태 이상, 색조 이상 등 여러 발육 문제 중 하나로 나타날 수 있으나, 구체적인 양상은 기록에 따라 다릅니다.',
+        severity: 'mild',
+        is_pathognomonic: false,
+      },
+    ],
+    diagnostic_criteria: [
+      '구강검진, 가족력, 동반 증후군 소견, 필요 시 치과 X-ray로 평가합니다.',
+      '맹출·결손·형태·색조·구조 중 특정 양상이 확인되면 더 구체적인 K00 코드로 재분류합니다.',
+    ],
     patient_friendly_summary:
       '차트에 tooth development problem은 적혀 있지만 더 구체적인 subtype까지는 정리되지 않았을 때 사용하는 코드입니다. 가능하면 더 자세한 K00 child code로 다시 분류하는 편이 좋습니다.',
     references: k00UnspecifiedReferences,

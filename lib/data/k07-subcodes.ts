@@ -15,6 +15,8 @@ type K07Config = {
   summary: string
   references: K07Reference[]
   anatomy?: string[]
+  pathophysiology?: string
+  etiology?: string[]
   risk_factors?: string[]
   symptoms?: {
     name: string
@@ -22,6 +24,8 @@ type K07Config = {
   }[]
   diagnostic?: string[]
   treatment?: EnrichedDiseaseEntry['treatment']
+  prognosis?: string
+  prevention?: string[]
 }
 
 const K07_UPDATED_AT = '2026-03-23'
@@ -59,16 +63,22 @@ function createK07Entry(config: K07Config): EnrichedDiseaseEntry {
     summary,
     references,
     anatomy,
+    pathophysiology,
+    etiology,
     risk_factors,
     symptoms,
     diagnostic,
     treatment,
+    prognosis,
+    prevention,
   } = config
 
   return makeK07Entry({
     code,
     name_en,
     definition,
+    pathophysiology,
+    etiology,
     anatomy_involved: anatomy,
     risk_factors,
     symptoms: symptoms?.map(({ name, severity = 'moderate' }) => ({
@@ -78,6 +88,8 @@ function createK07Entry(config: K07Config): EnrichedDiseaseEntry {
     })),
     diagnostic_criteria: diagnostic,
     treatment,
+    prognosis,
+    prevention,
     patient_friendly_summary: summary,
     references,
   })
@@ -382,6 +394,12 @@ const jawSizeEntries: K07Config[] = [
       'K07.0은 턱 자체가 지나치게 크거나 작아서 얼굴 비율과 교합에 영향을 주는 skeletal discrepancy를 묶는 범주입니다. 치아 배열만의 문제보다 상악과 하악의 크기 자체가 핵심입니다.',
     summary:
       'K07.0은 윗턱이나 아랫턱 자체의 크기 이상을 뜻합니다. 치아가 삐뚤어진 것과는 다르게, 턱뼈 비율 문제라서 교정 단독보다 수술 평가가 함께 논의되는 경우가 있습니다.',
+    pathophysiology:
+      '위턱이나 아래턱의 크기·비율이 정상과 달라, 치아가 들어설 공간과 위아래 턱의 맞물림에 영향을 줍니다. 작은 아래턱(소악증)은 수유나 정렬에 영향을 줄 수 있습니다.',
+    etiology: [
+      '턱뼈의 발육성 크기·비율 이상',
+      '위턱과 아래턱의 크기 불균형(예: class II·class III 양상)',
+    ],
     anatomy: ['상악', '하악', '교합 관계'],
     symptoms: [
       { name: '턱이 크거나 작아 보여 얼굴 비율과 옆모습이 달라질 수 있습니다.' },
@@ -392,6 +410,8 @@ const jawSizeEntries: K07Config[] = [
       '단순 돌출입이나 crowding만으로는 확정하지 않고, 턱 자체의 크기와 비율 평가를 함께 봅니다.',
     ],
     treatment: orthodonticSurgicalEvaluation,
+    prognosis:
+      '교정 단독으로 교정되지 않는 턱 크기·정렬 불균형은 악교정수술로 씹기, 얼굴 균형, 입술 다물기, 교합 맞춤을 개선할 수 있습니다.',
     references: jawSizeReferences,
   },
   {
@@ -669,6 +689,10 @@ const archRelationshipEntries: K07Config[] = [
       'K07.2는 위아래 치열궁이 서로 맞물리는 방식 자체가 비정상적인 bite-pattern 범주입니다. class II, class III, overjet, open bite, crossbite 같은 관계 이상이 여기에 들어갑니다.',
     summary:
       'K07.2는 위아래 치열궁이 서로 어떻게 물리는지의 문제입니다. crowding처럼 개별 치아 위치보다 교합 패턴 자체가 핵심입니다.',
+    etiology: [
+      '위턱과 아래턱(치열궁)이 정상적으로 정렬되지 않아 생기는 관계 이상',
+      '치열궁 관계의 불일치로 나타나는 비정상 교합 패턴',
+    ],
     anatomy: ['상악 치열궁', '하악 치열궁', '전치와 구치 교합'],
     symptoms: [
       { name: '위아래 치아가 잘 맞지 않아 씹기 불편하거나 닫을 때 특정 부위만 먼저 닿을 수 있습니다.' },
@@ -851,6 +875,19 @@ const toothPositionEntries: K07Config[] = [
       'K07.3은 개별 치아가 arch 안에서 차지하는 위치, 방향, 간격이 비정상적인 범주입니다. crowding, rotation, spacing, displacement, 매복과 연관된 위치 이상이 포함됩니다.',
     summary:
       'K07.3은 치아 하나하나의 자리 문제를 뜻합니다. 위아래 arch relationship보다 개별 치아의 겹침, 회전, 간격, 매복 쪽이 핵심입니다.',
+    pathophysiology:
+      '개별 치아의 위치 이상으로, 공간이 부족하면 치아가 겹치거나 비틀리고, 공간이 남으면 간격이 벌어지며, 매복·회전된 치아가 이웃 치아의 위치를 흐트러뜨릴 수 있습니다.',
+    etiology: [
+      '공간 부족(총생)',
+      '결손치·과잉치·매복치',
+      '손가락 빨기나 혀 내밀기 같은 습관',
+      '턱 크기와 치아 크기의 불일치',
+    ],
+    risk_factors: [
+      '손가락 빨기·혀 내밀기 같은 습관',
+      '결손치·과잉치·매복치가 있는 경우',
+      '턱과 치아 크기의 불일치',
+    ],
     anatomy: ['개별 치아', '치열궁 공간', '맹출 경로'],
     symptoms: [
       { name: '치아가 겹치거나 돌아가 있거나, 사이가 벌어져 보일 수 있습니다.' },
@@ -1275,6 +1312,8 @@ const miscEntries: K07Config[] = [
       '부정교합이 있다는 정보는 있지만 arch relationship, tooth position, 기능 원인 같은 세부 pattern이 적혀 있지 않은 상태입니다.',
     summary:
       'K07.4는 기록에 그냥 부정교합이라고만 적혀 있을 때 쓰는 fallback 코드입니다. 더 구체 정보가 생기면 K07.2나 K07.3으로 세분화하는 편이 좋습니다.',
+    pathophysiology:
+      '위아래 치아가 제대로 맞물리지 않는 상태로, 과개교합·반대교합·개방교합·교차교합·총생·공극 등 여러 양상으로 나타날 수 있습니다.',
     anatomy: ['전반적 교합 관계', '상·하악 치열궁'],
     symptoms: [{ name: '씹을 때 불편하거나 치아가 고르게 닿지 않는 느낌이 vague하게 기록될 수 있습니다.' }],
     diagnostic: [
@@ -1282,6 +1321,8 @@ const miscEntries: K07Config[] = [
       'crowding, open bite, crossbite 등 subtype이 명확하면 더 구체 코드로 분류합니다.',
     ],
     treatment: orthodonticEvaluation,
+    prognosis:
+      '경미한 부정교합은 치료가 필요 없는 경우가 많지만, 중등도 이상은 씹기, 청결 관리, 법랑질 마모, 턱·근육 부담에 영향을 줄 수 있습니다.',
     references: unspecifiedMalocclusionReferences,
   },
   {

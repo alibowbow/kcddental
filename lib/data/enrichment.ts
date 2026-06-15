@@ -1138,6 +1138,14 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
     synonyms_ko: ['잇몸의 기타 장애', '무치성 치조융기 장애'],
     definition:
       'K06은 치은퇴축, 치은비대, 외상이나 의치 자극과 연관된 잇몸·무치성 치조융기 병변처럼, K05 치은염·치주질환으로 분류되지 않는 잇몸 문제를 묶는 범주입니다.',
+    pathophysiology:
+      '치은퇴축은 잇몸이 내려가 치근이 드러나면서 시림을 유발하고, 치은비대는 잇몸 조직이 부어올라 청결 관리를 어렵게 만듭니다. 의치가 닿는 부위에서는 점막이 반복적으로 자극받을 수 있습니다.',
+    etiology: [
+      '과도한 힘의 칫솔질과 치태 관리 부족(치은퇴축)',
+      '약물 복용이나 염증과 연관된 잇몸 과증식',
+      '잘 맞지 않는 의치의 반복 자극',
+    ],
+    risk_factors: ['약물 복용력', '과도한 힘의 칫솔질', '치태·치석 관리 부족', '잘 맞지 않는 의치 사용'],
     anatomy_involved: ['치은', '치근 노출 부위', '무치성 치조융기', '의치가 닿는 구강 점막'],
     symptoms: [
       {
@@ -1149,6 +1157,15 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
         name: '잇몸이 붓거나 덮여서 치아가 작아 보이고, 의치 밑 잇몸이 붉고 아플 수 있습니다.',
         severity: 'moderate',
         is_pathognomonic: false,
+      },
+    ],
+    treatment: [
+      {
+        approach: '원인 교정을 우선하는 보존적 접근',
+        description:
+          '먼저 잘못된 칫솔질 습관, 치태 관리, 약물, 의치 적합도 같은 원인을 교정하고, 증상이 지속되면 치주 또는 연조직 처치를 고려합니다.',
+        evidence_level: 'Expert',
+        is_insured: null,
       },
     ],
     prevention: [
@@ -1213,6 +1230,22 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
     synonyms_ko: ['치아얼굴이상', '부정교합 포함 악안면 이상'],
     definition:
       'K07은 턱 크기와 위치 관계, 치열궁과 치아 위치의 이상, 부정교합, 그리고 일부 턱관절 기능 문제까지 포함하는 넓은 분류 범주입니다. 하나의 단일 질환이라기보다 정렬과 기능 문제를 묶는 umbrella code에 가깝습니다.',
+    symptoms: [
+      {
+        name: '물림이 잘 맞지 않거나 씹기가 불편하고, 턱이 불편할 수 있습니다.',
+        severity: 'mild',
+        is_pathognomonic: false,
+      },
+      {
+        name: '문제 유형에 따라 교정 중심 평가 또는 턱관절 중심 평가가 필요할 수 있습니다.',
+        severity: 'mild',
+        is_pathognomonic: false,
+      },
+    ],
+    diagnostic_criteria: [
+      '물림 이상·씹기 어려움·턱 불편이 턱 크기, 치열궁 관계, 치아 위치, 턱관절 중 어느 하위 유형에 해당하는지 구분합니다.',
+      '교정 평가가 필요한지, 턱관절 중심 평가가 필요한지 판단합니다.',
+    ],
     treatment: [
       {
         approach: '하위 유형에 맞는 교정·보존·수술 계획',
@@ -1221,6 +1254,9 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
         evidence_level: 'Expert',
         is_insured: null,
       },
+    ],
+    prevention: [
+      '턱관절 관련 증상은 보존적 관리를 먼저 시도하고, 되돌릴 수 없는 교합 변경 치료를 기본 단계로 삼지 않는 것이 권고됩니다.',
     ],
     patient_friendly_summary:
       'K07은 단순히 치아가 삐뚤어진 문제만이 아니라, 턱 크기·위치 차이와 턱관절 기능 문제까지 포함하는 넓은 범주입니다. 그래서 어떤 사람은 교정이 중심이고, 어떤 사람은 턱관절 관리나 수술 평가가 더 중요할 수 있습니다.',
@@ -1373,6 +1409,8 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
     synonyms_ko: ['턱의 기타 질환', '턱뼈 질환'],
     definition:
       'K10은 턱의 발육장애, 염증성 턱뼈 병변, 치조염, 약물 관련 턱뼈괴사처럼 K07과 K09에 따로 분류되지 않는 다양한 턱 질환을 묶는 범주입니다. root 단계에서는 공통된 증상과 평가 원칙만 설명하는 것이 안전합니다.',
+    pathophysiology:
+      'K10은 발육성 턱 기형, 염증성 턱뼈 병태, 치조염, 턱뼈괴사처럼 기전이 서로 다른 질환을 함께 묶기 때문에 단일 병태생리로 설명하기 어렵습니다. 다만 턱 통증·부종·씹기 불편, 발치 후 치유 지연처럼 공통된 경고 신호를 공유하는 경우가 많아, 높은 수준에서만 보수적으로 설명하는 것이 안전합니다.',
     anatomy_involved: ['상악', '하악', '치조골', '발치와', '주변 연조직'],
     symptoms: [
       {
