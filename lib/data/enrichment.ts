@@ -110,9 +110,11 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
       ],
     },
     epidemiology: {
+      prevalence_global:
+        'WHO 세계 구강건강 현황 보고서(2022)는 영구치의 우식이 전 세계 약 20억 명에게, 유치의 우식이 약 5억 1,400만 명의 어린이에게 영향을 준다고 추정합니다.',
       trend:
         '질병관리청 설명 자료는 충치를 매우 흔한 구강질환으로 다루며, 예방을 위해 식이 조절과 불소 사용, 정기 검진의 중요성을 강조합니다.',
-      source: '질병관리청 국가건강정보포털 충치 페이지(2024)와 구강병 예방 및 관리방법 페이지(2024)',
+      source: '질병관리청 국가건강정보포털 충치 페이지(2024), 구강병 예방 및 관리방법 페이지(2024), WHO Oral health fact sheet(2023)',
     },
     patient_friendly_summary:
       '충치는 치아 표면에 붙은 세균이 당을 분해하며 만든 산 때문에 생깁니다. 초기에 관리하면 더 깊은 통증과 치아 손실을 줄일 수 있어, 집에서의 위생관리와 정기 검진이 중요합니다.',
@@ -131,6 +133,12 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
           url: 'https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=6291',
           year: 2024,
           note: '구강병 예방 수칙을 예방 항목에 반영했습니다.',
+        },
+        {
+          title: 'Oral health | WHO fact sheet',
+          url: 'https://www.who.int/news-room/fact-sheets/detail/oral-health',
+          year: 2023,
+          note: '영구치·유치 우식의 전 세계 추정 환자 수를 prevalence_global에 반영했습니다.',
         },
       ],
     },
@@ -370,9 +378,11 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
     epidemiology: {
       prevalence_korea:
         '국민건강영양조사 제7기 3차년도(2018) 구강검사 기준, 우리나라 19세 이상 성인의 치주질환 유병률은 23.4%입니다.',
+      prevalence_global:
+        'WHO는 중증 치주질환이 전 세계 성인의 약 19%, 즉 10억 명 이상에게 영향을 주는 것으로 추정합니다.',
       peak_age: '연령이 증가할수록 유병률이 높아지고 특히 50세 이상에서 급격히 증가합니다.',
       trend: '남녀 모두 연령이 높아질수록 유병률이 상승하는 패턴이 보고됩니다.',
-      source: '질병관리청 국가건강정보포털 잇몸병(치주질환) 페이지(2025)',
+      source: '질병관리청 국가건강정보포털 잇몸병(치주질환) 페이지(2025), WHO Oral health fact sheet(2023)',
     },
     patient_friendly_summary:
       '잇몸병은 초기에 피가 나고 붓는 정도로 시작할 수 있지만, 관리하지 않으면 잇몸뼈가 줄고 치아가 흔들릴 수 있습니다. 매일의 구강위생 관리와 정기 검진이 가장 중요한 예방법입니다.',
@@ -409,6 +419,12 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
           url: 'https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=6291',
           year: 2024,
           note: '치주질환 예방 설명을 예방 항목에 반영했습니다.',
+        },
+        {
+          title: 'Oral health | WHO fact sheet',
+          url: 'https://www.who.int/news-room/fact-sheets/detail/oral-health',
+          year: 2023,
+          note: '중증 치주질환의 전 세계 추정 유병률(성인 약 19%)을 prevalence_global에 반영했습니다.',
         },
       ],
     },
@@ -706,6 +722,12 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
       '흡연을 줄이고 당뇨병 같은 전신질환을 잘 조절합니다.',
       '치아가 흔들리거나 빠졌다면 지연하지 말고 기능 회복 상담을 받습니다.',
     ],
+    epidemiology: {
+      prevalence_global:
+        'WHO 세계 구강건강 현황 보고서(2022)는 완전 무치악(전체 치아 상실)이 전 세계 약 3억 5천만 명에게 영향을 주며, 유병률이 고령층에서 크게 높아진다고 보고합니다.',
+      trend: '치아 상실은 치료되지 않은 치주질환과 우식의 누적 결과로 나타나는 경우가 많아 연령이 높아질수록 증가합니다.',
+      source: 'WHO Oral health fact sheet(2023) 및 Global Oral Health Status Report 2022',
+    },
     patient_friendly_summary:
       '치아가 흔들리거나 빠지는 문제는 단순히 치아 하나의 문제가 아니라, 이를 지지하는 잇몸과 뼈가 약해졌다는 신호일 수 있습니다. 초기에 관리할수록 기능 저하를 줄이기 쉽습니다.',
     external: {
@@ -741,6 +763,12 @@ export const enrichmentData: Record<string, EnrichedDiseaseEntry> = {
           url: 'https://medlineplus.gov/lab-tests/dental-exam/',
           year: 2024,
           note: '정기 검진과 치과 평가의 중요성을 예방 항목에 참고했습니다.',
+        },
+        {
+          title: 'Oral health | WHO fact sheet',
+          url: 'https://www.who.int/news-room/fact-sheets/detail/oral-health',
+          year: 2023,
+          note: '완전 무치악(전체 치아 상실)의 전 세계 추정 환자 수를 epidemiology에 반영했습니다.',
         },
       ],
     },
